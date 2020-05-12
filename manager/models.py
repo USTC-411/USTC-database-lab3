@@ -21,7 +21,7 @@ class Major(models.Model):
   def __str__(self):
     return self.name
 
-class Class_(models.Model):
+class myClass(models.Model):
   id = models.CharField(max_length=30, primary_key=True)
   name = models.CharField(max_length=30)
   date = models.DateField()
@@ -36,21 +36,21 @@ class Person(models.Model):
   IDCARD = 'IDCard'
   PASSPORT = 'Passport'
   ID_TYPE = (
-    (IDCARD, '身份证')
+    (IDCARD, '身份证'),
     (PASSPORT, '护照')
   )
   # Enum value for sex
   MALE = 'male'
   FEMALE = 'female'
   SEX_TYPE = (
-    (MALE, '男')
+    (MALE, '男'),
     (FEMALE, '女')
   )
   # Fields for model
   id = models.CharField(max_length=30, primary_key=True)
-  id_type = models.CharField(choices=ID_TYPE, default=IDCARD)
+  id_type = models.CharField(max_length=30,choices=ID_TYPE, default=IDCARD)
   name = models.CharField(max_length=30)
-  sex = models.CharField(choices=SEX_TYPE)
+  sex = models.CharField(max_length=30, choices=SEX_TYPE)
   birthday = models.CharField(max_length=30)
   nationality = models.CharField(max_length=30)
   family_address = models.CharField(max_length=30, blank=True)
@@ -66,28 +66,25 @@ class Teacher(Person):
   PROFESSOR = 'professor'
   ASSOCIATE_PROFESSOR = 'associate_professor'
   TITLE_TYPE = (
-    (PROFESSOR, '教授')
+    (PROFESSOR, '教授'),
     (ASSOCIATE_PROFESSOR, '副教授')
   )
   # Fields for model
   teacher_id = models.CharField(max_length=30, unique=True)
   major = models.ForeignKey('Major', on_delete=models.CASCADE)
-  title = models.CharField(choices=TITLE_TYPE)
+  title = models.CharField(max_length=30, choices=TITLE_TYPE)
   def __str__(self):
     return self.name
 
 class Student(Person):
   student_id = models.CharField(max_length=30, unique=True)
-  class_ = models.ForeignKey('Class_', on_delete=models.CASCADE)
-  lesson_select = models.ManyToManyField(Lesson, related_name='lesson_select', through='LessonSelect')
+  myClass = models.ForeignKey('myClass', on_delete=models.CASCADE)
   def __str__(self):
     return self.name
 
 class StatusChange(models.Model):
   chenge_id = models.CharField(max_length=30, primary_key=True)
   change_date = models.DateField()
-  original_class = models.OneToOneField(Class_,on_delete=models.CASCADE)
-  current_class = models.OneToOneField(Class_,on_delete=models.CASCADE)
   class Meta:
     abstract = True
 
@@ -97,6 +94,8 @@ class MajorTransfer(StatusChange):
     on_delete = models.CASCADE,
     related_name = 'major_transfer'
   )
+  original_class = models.OneToOneField(myClass, on_delete=models.CASCADE, related_name="major_original_class")
+  current_class = models.OneToOneField(myClass, on_delete=models.CASCADE, related_name="major_current_class")
   has_transfered_communist_youth_league_relationship = models.BooleanField(default=False)
 
 class GradeTransfer(StatusChange):
@@ -104,7 +103,7 @@ class GradeTransfer(StatusChange):
   SUSPENSION = 'suspension'
   VOLUNTEER_TEACHING = 'volunteer_teaching'
   DEGRADE_REASON = (
-    (SUSPENSION, '休学')
+    (SUSPENSION, '休学'),
     (VOLUNTEER_TEACHING, '支教')
   )
   # Fields of this model
@@ -113,36 +112,38 @@ class GradeTransfer(StatusChange):
     on_delete = models.CASCADE,
     related_name = 'grade_transfer'
   )
-  degrade_reason = models.CharField(choices=DEGRADE_REASON)
+  original_class = models.OneToOneField(myClass, on_delete=models.CASCADE, related_name="degrade_original_class")
+  current_class = models.OneToOneField(myClass, on_delete=models.CASCADE, related_name="degrade_current_class")
+  degrade_reason = models.CharField(max_length=30, choices=DEGRADE_REASON)
 
 class Lesson(models.Model):
   # Enum value of test type
   TEST = 'test'
   DEBATE = 'debate'
   TEST_TYPE = (
-    (TEST, '考试')
+    (TEST, '考试'),
     (DEBATE, '答辩')
   )
   # Enum value of lesson status
   VALID = 'valid'
   INVALID = 'invalid'
   LESSON_STATUS = (
-    (VALID, 'valid')
-    (INVALID, 'invalid')
+    (VALID, '开课'),
+    (INVALID, '未开课')
   )
   # Fields of this model
   id = models.CharField(max_length=30, primary_key=True)
   name = models.CharField(max_length=30, unique=True)
   major = models.ForeignKey('Major', on_delete=models.CASCADE)
-  test_type = models.CharField(choices=TEST_TYPE, default=TEST)
-  lesson_status = models.CharField(choices=LESSON_STATUS, default=INVALID)
+  test_type = models.CharField(max_length=30, choices=TEST_TYPE, default=TEST)
+  lesson_status = models.CharField(max_length=30, choices=LESSON_STATUS, default=INVALID)
 
 class ValidLesson(models.Model):
   # Enum value of semester
   SPRING = 'spring'
   AUTUMN = 'autumn'
   SEMESTER = (
-    (SPRING, '春季学期')
+    (SPRING, '春季学期'),
     (AUTUMN, '秋季学期')
   )
   # Enum value of lesson's begin time
@@ -202,13 +203,12 @@ class ValidLesson(models.Model):
   )
   teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE)
   begin_date = models.DateField()
-  begin_semester = models.CharField(choices=SEMESTER)
-  begin_time = models.IntegerField(choices=BEGIN_TIME_TYPE)
+  begin_semester = models.CharField(max_length=30, choices=SEMESTER)
+  begin_time = models.IntegerField(choices=BEGIN_TIME_TYPE.choices)
+  students = models.ManyToManyField(Student, related_name='students', through='LessonSelect')
 
 class LessonSelect(models.Model):
   valid_lesson = models.ForeignKey(ValidLesson, on_delete=models.CASCADE)
   student = models.ForeignKey(Student, on_delete=models.CASCADE)
-  select_date = valid_lesson.begin_date
-  select_semester = valid_lesson.begin_semester
   score = models.IntegerField(validators=[MaxValueValidator(100), MinValueValidator(0)])
 

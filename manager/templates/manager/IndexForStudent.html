@@ -6,160 +6,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    {% load static %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'manager/css/IndexForStudent.css' %}">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <title>Homepage</title>
   </head>
   <body>
-    <nav class="navbar navbar-dark bg-dark ">
-      <a class="navbar-brand">College Information Management System</a>
-      <div class="col-md-3" style="left: 12%;">
-        <select class="custom-select" id="validationCustom04" required>
-          <option selected disabled value="">Please choose search option</option>
-          <option>Lessons</option>
-          <option>Students</option>
-        </select>
-        <div class="invalid-feedback">
-          Please select a valid option
-        </div>
-      </div>
-      <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    
+    <nav class="navbar navbar-dark bg-dark top-bar">
+      <a class="navbar-brand logo">USTC</a>
+      <a class="navbar-brand nav-title">College Management System</a>
+      <form class="form-inline search-form">
+        <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
+      <button class="btn btn-primary my-2 my-sm-0" type="submit">Advanced Search</button>
     </nav>
     
-    <div class="container bg-light">
-      <div class="row" style="">
-        <div class="card text-center bg-info m-4" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">Manage Campus</h5>
-            <ul class="list-group">
-              <li class="list-group-item list-group-item-primary">Add a campus</li>
-              <li class="list-group-item list-group-item-danger">Delete a campus</li>
-              <li class="list-group-item list-group-item-info">Query a campus</li>
-              <li class="list-group-item list-group-item-warning">Modify a campus</li>
-            </ul>
-            <a href="#" class="btn btn-primary">Go to manage page</a>
-          </div>
+    <div class="btn-toolbar management-choice" role="toolbar" aria-label="Toolbar with button groups">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle btn-lg mr-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Campus
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
         </div>
+      </div>
+      
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle btn-lg mr-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Major
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div>
 
-        <div class="card text-center bg-success m-4" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">Manage Major</h5>
-            <ul class="list-group">
-              <li class="list-group-item list-group-item-primary">Add a Major</li>
-              <li class="list-group-item list-group-item-danger">Delete a Major</li>
-              <li class="list-group-item list-group-item-info">Query a Major</li>
-              <li class="list-group-item list-group-item-warning">Modify a Major</li>
-            </ul>
-            <a href="#" class="btn btn-primary">Go to manage page</a>
-          </div>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle btn-lg mr-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Class
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
         </div>
-        
-        <div class="card text-center bg-secondary m-4" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">Manage Class</h5>
-            <ul class="list-group">
-              <li class="list-group-item list-group-item-primary">Add a Class</li>
-              <li class="list-group-item list-group-item-danger">Delete a Class</li>
-              <li class="list-group-item list-group-item-info">Query a Class</li>
-              <li class="list-group-item list-group-item-warning">Modify a Class</li>
-            </ul>
-            <a href="#" class="btn btn-primary">Go to manage page</a>
-          </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle btn-lg mr-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Students
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle btn-lg mr-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Students' Status
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle btn-lg mr-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Lessons
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle btn-lg mr-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Lesson Selection
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </div>
     </div>
 
-    <div class="container bg-light">
-      <div class="row">
-        <div class="card text-center bg-success m-4" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">Manage Student</h5>
-            <ul class="list-group">
-              <li class="list-group-item list-group-item-primary">Add a Student</li>
-              <li class="list-group-item list-group-item-danger">Delete a Student</li>
-              <li class="list-group-item list-group-item-info">Query a Student</li>
-              <li class="list-group-item list-group-item-warning">Modify a Student</li>
-            </ul>
-            <a href="#" class="btn btn-primary">Go to manage page</a>
-          </div>
-        </div>
-
-        <div class="card text-center bg-secondary m-4" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">Manage StudentStatus</h5>
-            <ul class="list-group">
-              <li class="list-group-item list-group-item-primary">Add a StudentStatus</li>
-              <li class="list-group-item list-group-item-danger">Delete a StudentStatus</li>
-              <li class="list-group-item list-group-item-info">Query a StudentStatus</li>
-              <li class="list-group-item list-group-item-warning">Modify a StudentStatus</li>
-            </ul>
-            <a href="#" class="btn btn-primary">Go to manage page</a>
-          </div>
-        </div>
-
-        <div class="card text-center bg-info m-4" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">Manage Teacher</h5>
-            <ul class="list-group">
-              <li class="list-group-item list-group-item-primary">Add a Teacher</li>
-              <li class="list-group-item list-group-item-danger">Delete a Teacher</li>
-              <li class="list-group-item list-group-item-info">Query a Teacher</li>
-              <li class="list-group-item list-group-item-warning">Modify a Teacher</li>
-            </ul>
-            <a href="#" class="btn btn-primary">Go to manage page</a>
-          </div>
-        </div>
+    <div class="card info bg-info">
+      <div class="card-body">
+        <h5 class="card-title">Name</h5>
+        <ul class="list-group">
+          <li class="list-group-item active">ID</li>
+          <li class="list-group-item">Campus</li>
+          <li class="list-group-item">Major</li>
+          <li class="list-group-item">Class</li>
+        </ul>
       </div>
     </div>
 
-    <div class="container bg-light">
-      <div class="row">
-        <div class="card text-center bg-secondary m-4" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">Manage Lesson</h5>
-            <ul class="list-group">
-              <li class="list-group-item list-group-item-primary">Add a Lesson</li>
-              <li class="list-group-item list-group-item-danger">Delete a Lesson</li>
-              <li class="list-group-item list-group-item-info">Query a Lesson</li>
-              <li class="list-group-item list-group-item-warning">Modify a Lesson</li>
-            </ul>
-            <a href="#" class="btn btn-primary">Go to manage page</a>
-          </div>
-        </div>
-
-        <div class="card text-center bg-info m-4" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">Course Management</h5>
-            <ul class="list-group">
-              <li class="list-group-item list-group-item-primary">Add a Course</li>
-              <li class="list-group-item list-group-item-danger">Delete a Course</li>
-              <li class="list-group-item list-group-item-info">Query a Course</li>
-              <li class="list-group-item list-group-item-warning">Modify a Course</li>
-            </ul>
-            <a href="#" class="btn btn-primary">Go to manage page</a>
-          </div>
-        </div>
-
-        <div class="card text-center bg-success m-4" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">Course Selection</h5>
-            <ul class="list-group">
-              <li class="list-group-item list-group-item-primary">Select a course</li>
-              <li class="list-group-item list-group-item-danger">Delete a selected course</li>
-              <li class="list-group-item list-group-item-info">Query a selected course</li>
-              <li class="list-group-item list-group-item-warning">Modify a selected course</li>
-            </ul>
-            <a href="#" class="btn btn-primary">Go to manage page</a>
-          </div>
-        </div>
-      </div>
+    <div class="embed-responsive embed-responsive-1by1 content">
+      <iframe class="embed-responsive-item" src="login/"></iframe>
     </div>
-
-    
   </body>
 </html>

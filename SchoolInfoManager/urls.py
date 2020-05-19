@@ -20,4 +20,5 @@ from manager import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.IndexForStudent),
+    path('login/', views.login),
 ]

@@ -58,6 +58,7 @@ class Person(models.Model):
   family_telephone = models.CharField(max_length=30, blank=True)
   entry_date = models.DateField()
   email = models.CharField(max_length=30)
+  password = models.CharField(max_length=256)
   class Meta:
     abstract = True
 

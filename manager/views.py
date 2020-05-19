@@ -7,6 +7,9 @@ from django.shortcuts import render, redirect
 def IndexForStudent(request):
   return render(request, 'manager/IndexForStudent.html')
 
+def IndexForTeacher(request):
+  return render(request, 'manager/IndexForStudent.html')
+
 def login(request):
   return render(request, 'manager/login.html')
 

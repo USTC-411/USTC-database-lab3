@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  {% load static %}
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static 'manager/css/Search.css' %}">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+  <title>Information Search</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-dark bg-dark top-bar">
+    <a class="navbar-brand logo">USTC</a>
+    <a class="navbar-brand nav-title">Information Search System</a>
+  </nav>
+
+  <form class=all-form>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text search-type">Global Search</span>
+      </div>
+      <input type="text" class="form-control">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+
+  <form class=all-form>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text search-type">Student Search</span>
+      </div>
+      <div class="input-group-prepend">
+        <span class="input-group-text all-item">Name</span>
+      </div>
+      <input type="text" class="form-control" name="StudentName">
+      <div class="input-group-prepend">
+        <span class="input-group-text all-item">Student Number</span>
+      </div>
+      <input type="text" class="form-control" name="StudentNumber">
+      <div class="input-group-prepend">
+        <span class="input-group-text all-item">Class</span>
+      </div>
+      <input type="text" class="form-control" name="StudentClass">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+  <form class=all-form>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text search-type">Course Search</span>
+      </div>
+      <div class="input-group-prepend">
+        <span class="input-group-text all-item">CourseID</span>
+      </div>
+      <input type="text" class="form-control" name="CourseID">
+      <div class="input-group-prepend">
+        <span class="input-group-text all-item">Teacher</span>
+      </div>
+      <input type="text" class="form-control" name="CourseTeacher">
+      <div class="input-group-prepend">
+        <span class="input-group-text all-item">Start Time</span>
+      </div>
+      <input type="text" class="form-control" name="CourseStartTime">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+
+</body>
+
+</html>

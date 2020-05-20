@@ -8,7 +8,7 @@ def IndexForStudent(request):
   return render(request, 'manager/IndexForStudent.html')
 
 def IndexForTeacher(request):
-  return render(request, 'manager/IndexForStudent.html')
+  return render(request, 'manager/IndexForTeacher.html')
 
 def login(request):
   return render(request, 'manager/login.html')

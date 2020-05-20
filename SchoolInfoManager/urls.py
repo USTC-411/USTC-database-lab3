@@ -21,6 +21,6 @@ urlpatterns = [
     path('', views.login),
     path('admin/', admin.site.urls),
     path('IndexForStudent/', views.IndexForStudent),
-    path('IndexForTeacher/', views.IndexForStudent),
+    path('IndexForTeacher/', views.IndexForTeacher),
     path('login/', views.login),
 ]

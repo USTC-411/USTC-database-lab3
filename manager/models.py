@@ -58,7 +58,7 @@ class Person(models.Model): # 定义一个抽象类“人类”作为父类，�
   family_telephone = models.CharField(max_length=30, blank=True)
   entry_date = models.DateField()
   email = models.CharField(max_length=30)
-  password = models.CharField(max_length=256, default="123456")
+  
   class Meta: # Meta属性，定义模型的一些特性，此处约定该模型为抽象类
     abstract = True
 
@@ -72,6 +72,7 @@ class Teacher(Person): # 老师模型的定义，继承Person类
   )
   # Fields for model
   teacher_id = models.CharField(max_length=30, unique=True)
+  password = models.CharField(max_length=256, default="123456")
   major = models.ForeignKey('Major', on_delete=models.CASCADE) # 有一个外键，默认指向专业的主键，也就是id
   title = models.CharField(max_length=30, choices=TITLE_TYPE)
   def __str__(self):
@@ -79,6 +80,7 @@ class Teacher(Person): # 老师模型的定义，继承Person类
 
 class Student(Person): # 学生模型的定义，继承Person类
   student_id = models.CharField(max_length=30, unique=True)
+  password = models.CharField(max_length=256, default="123456")
   myClass = models.ForeignKey('myClass', on_delete=models.CASCADE) # 有一个外键，默认指向班级的主键，也就是id
   def __str__(self):
     return self.name

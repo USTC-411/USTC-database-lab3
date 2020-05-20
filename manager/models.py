@@ -58,7 +58,7 @@ class Person(models.Model): # 定义一个抽象类“人类”作为父类，�
   family_telephone = models.CharField(max_length=30, blank=True)
   entry_date = models.DateField()
   email = models.CharField(max_length=30)
-  password = models.CharField(max_length=256)
+  password = models.CharField(max_length=256, default="123456")
   class Meta: # Meta属性，定义模型的一些特性，此处约定该模型为抽象类
     abstract = True
 

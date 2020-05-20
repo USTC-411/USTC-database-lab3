@@ -11,8 +11,6 @@ def IndexForStudent(request):
 def IndexForTeacher(request):
     return render(request, 'manager/IndexForTeacher.html')
 
-'''def login(request):
-    return render(request, 'manager/login.html')'''
 
 def login_student(request):
     if request.method == "POST":

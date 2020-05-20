@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect
+from . import models
 
 # Create your views here.
 def IndexForStudent(request):
@@ -35,5 +36,3 @@ def login_student(request):
         else:
             return render(request, 'manager/login.html', {'message': message})
     return render(request, 'manager/login.html')
-
-

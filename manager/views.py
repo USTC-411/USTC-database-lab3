@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect
+from . import models
 
 # Create your views here.
 def IndexForStudent(request):
@@ -10,8 +11,6 @@ def IndexForStudent(request):
 def IndexForTeacher(request):
     return render(request, 'manager/IndexForTeacher.html')
 
-'''def login(request):
-    return render(request, 'manager/login.html')'''
 
 def login_student(request):
     if request.method == "POST":

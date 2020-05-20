@@ -24,4 +24,5 @@ urlpatterns = [
     path('IndexForTeacher/', views.IndexForTeacher),
     #path('login/', views.login),
     path('login_student/', views.login_student),
+    path('logout_student/',views.logout_student)
 ]

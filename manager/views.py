@@ -26,7 +26,7 @@ def login_student(request):
             if (user.password == password): # 有的话还要检查密码是否正确
                 request.session['is_login'] = True
                 request.session['user_id'] = user.id
-                request.session['user_name'] = user.name
+                request.session['user_type'] = 'Student'
                 return redirect('login_student')
             else:
                 message = '密码不正确！'
@@ -34,3 +34,10 @@ def login_student(request):
         else:
             return render(request, 'manager/login.html', {'message': message})
     return render(request, 'manager/login.html')
+
+def logout_student(request): 
+    if not request.session.get('is_login', None):
+        # 如果本来就未登录，也就没有登出一说
+        return redirect("/login_student/")
+    request.session.flush()
+    return redirect("/login_student/")

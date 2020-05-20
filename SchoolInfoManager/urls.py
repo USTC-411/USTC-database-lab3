@@ -18,11 +18,13 @@ from django.urls import path, include
 from manager import views
 
 urlpatterns = [
-    #path('', views.login),
+    path('', views.entrance),
     path('admin/', admin.site.urls),
     path('IndexForStudent/', views.IndexForStudent),
     path('IndexForTeacher/', views.IndexForTeacher),
     #path('login/', views.login),
     path('login_student/', views.login_student),
-    path('logout_student/',views.logout_student)
+    path('logout_student/', views.logout_student),
+    path('login_teacher/', views.login_teacher),
+    path('logout_teacher/', views.logout_teacher),
 ]

@@ -41,3 +41,36 @@ def logout_student(request):
         return redirect("/login_student/")
     request.session.flush()
     return redirect("/login_student/")
+
+def login_teacher(request):
+    if request.method == "POST":
+        user_id = request.POST.get('userid')
+        password = request.POST.get('password')
+        message = '请填写学号与密码！'
+        if user_id.strip() and password:
+            try:
+                user = models.Student.objects.get(teacher_id=user_id)#从数据库中根据用户名检索
+            except:
+                message = '学号不正确！'
+                return render(request, 'manager/login.html', {'message': message,'state': 'Invalid id!'})#没有这个用户就返回登录界面
+            if (user.password == password): # 有的话还要检查密码是否正确
+                request.session['is_login'] = True
+                request.session['user_id'] = user.id
+                request.session['user_type'] = 'Student'
+                return redirect('login_teacher')
+            else:
+                message = '密码不正确！'
+                return render(request, 'manager/login.html', {'message': 'Invalid password'})
+        else:
+            return render(request, 'manager/login.html', {'message': message})
+    return render(request, 'manager/login.html')
+
+def logout_teacher(request): 
+    if not request.session.get('is_login', None):
+        # 如果本来就未登录，也就没有登出一说
+        return redirect("/login_teacher/")
+    request.session.flush()
+    return redirect("/login_teacher/")
+
+def entrance(request):
+    return render(request, 'manager/entrance.html')

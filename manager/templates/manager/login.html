@@ -11,15 +11,15 @@
   <body>
     <div class="container">
         <div class="col">
-            <form class="form-login" action="/user/login/" method="post">
+            <form class="form-login" action="/manage/login/" method="post">
                 {% if message %}
                     <div class="alert alert-warning">{{ message }}</div>
                 {% endif %}
                 {% csrf_token %}
                 <h3 class="text-center">欢迎登录</h3>
                 <div class="form-group">
-                <label for="id_username">学号/职工号：</label>
-                <input type="text" name='username' class="form-control" id="id_username" placeholder="Username" autofocus required>
+                <label for="id_userid">学号/职工号：</label>
+                <input type="text" name='userid' class="form-control" id="id_userid" placeholder="Userid" autofocus required>
                 </div>
                 <div class="form-group">
                 <label for="id_password">密码：</label>

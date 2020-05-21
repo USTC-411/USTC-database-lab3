@@ -43,7 +43,7 @@ def login_student(request):#学生登录
             if (user.password == password): # 有的话还要检查密码是否正确
                 request.session['is_login'] = True
                 request.session['user_type'] = 'Student'
-                return redirect('/IndexForStudent/')
+                return render(request, Index_For_Student_Path)
             else:
                 message = '密码不正确！'
                 return render(request, Student_Login_Path, {'message': 'Invalid password'})

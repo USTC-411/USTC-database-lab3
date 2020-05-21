@@ -62,7 +62,7 @@
       </div>
       <input type="text" class="form-control" list="typelist" name="StudentSex">
       <datalist id="typelist">
-　　    <option value="male">
+        　　 <option value="male">
         <option value="female">
       </datalist>
       <button type="submit" class="btn btn-primary">Search</button>
@@ -86,9 +86,9 @@
       </div>
       <input type="text" class="form-control" name="CourseTeacher">
       <div class="input-group-prepend">
-        <span class="input-group-text all-item">Start Time</span>
+        <span class="input-group-text all-item">Time</span>
       </div>
-      <input type="text" class="form-control" name="CourseStartTime">
+      <input type="text" class="form-control" name="CourseTime">
       <button type="submit" class="btn btn-primary">Search</button>
     </div>
   </form>
@@ -129,8 +129,9 @@
           <th scope="col">Course ID</th>
           <th scope="col">Name</th>
           <th scope="col">Teacher</th>
-          <th scope="col">Start Time</th>
+          <th scope="col">Time</th>
           <th scope="col">Test Type</th>
+          <th scope="col">Semester</th>
         </tr>
       </thead>
       <tbody>
@@ -141,6 +142,7 @@
           <td>{{ cou.teacher }}</td>
           <td>{{ cou.starttime }}</td>
           <td>{{ cou.testtype }}</td>
+          <td>{{ cou.semester}}</td>
         </tr>
         {% endfor %}
       </tbody>

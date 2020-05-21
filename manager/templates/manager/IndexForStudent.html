@@ -19,11 +19,13 @@
     <nav class="navbar navbar-dark bg-dark top-bar">
       <a class="navbar-brand logo">USTC</a>
       <a class="navbar-brand nav-title">College Management System</a>
-      <form class="form-inline search-form">
-        <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
+      <form class="form-inline search-form" action="/search/global_search/">
+        <input class="form-control mr-sm-1" type="text" placeholder="Search" name="global_info" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
+      <form action="/search/">
       <button class="btn btn-primary my-2 my-sm-0" type="submit">Advanced Search</button>
+      </form>
     </nav>
     
     <div class="btn-toolbar management-choice" role="toolbar" aria-label="Toolbar with button groups">

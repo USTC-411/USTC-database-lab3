@@ -17,10 +17,60 @@
   <body>
     <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
       <a class="navbar-brand nav-title">Campus Management</a>
-      <form class="form-inline search-form">
-        <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
+      <form class="form-inline search-form query-form">
+        <input class="form-control mr-sm-1" type="search" placeholder="type in constrains" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Query</button>
       </form>
+      <button class="btn btn-success" type="submit">Add</button>
     </nav>
+
+    <table class="table table-secondary">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="btn-group page-roller" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-primary">Last Page</button>
+      <button type="button" class="btn btn-primary">Next Page</button>
+    </div>
+
   </body>
 </html>

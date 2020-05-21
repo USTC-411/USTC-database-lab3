@@ -29,12 +29,12 @@
     <a class="navbar-brand nav-title">Information Search System</a>
   </nav>
 
-  <form class=all-form>
+  <form class=all-form action="/search/global_search/">
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text search-type">Global Search</span>
       </div>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" name="global_info">
       <button type="submit" class="btn btn-primary">Search</button>
     </div>
   </form>
@@ -52,7 +52,7 @@
         <span class="input-group-text all-item">Name</span>
       </div>
       <input type="text" class="form-control" name="StudentName">
-      
+
       <div class="input-group-prepend">
         <span class="input-group-text all-item">Class</span>
       </div>
@@ -99,15 +99,17 @@
         </tr>
       </thead>
       <tbody>
+        {% for stu in stu_list %}
         <tr>
-          <td>PB17061196</td>
-          <td>liwuchao</td>
-          <td>3</td>
-          <td>M</td>
-          <td>liwuchao@mail.ustc.edu.cn</td>
-          <td>1999-01-01</td>
-          <td>China</td>
+          <td>{{ stu.student_id }}</td>
+          <td>{{ stu.stu_name }}</td>
+          <td>{{ stu.myClass }}</td>
+          <td>{{ stu.stu_sex }}</td>
+          <td>{{ stu.email }}</td>
+          <td>{{ stu.birthday }}</td>
+          <td>{{ stu.nationality }}</td>
         </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>

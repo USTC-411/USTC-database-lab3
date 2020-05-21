@@ -24,4 +24,5 @@ urlpatterns = [
     path('IndexForTeacher/', views.IndexForStudent),
     path('login/', views.login),
     path('search/',search.index),
+    path('search/global_search/',search.global_search),
 ]

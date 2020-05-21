@@ -10,13 +10,6 @@
   font-family: OpenDyslexic-Bold;
   src: url("../fonts/OpenDyslexic-Bold.otf")
 }
-.content {
-  position: absolute;
-  left: 12%;
-  top: 15%;
-  width: 66%;
-  height: 66.5%;
-}
 .logo {
   position: absolute;
   font-family: TheyPerished;
@@ -30,23 +23,22 @@
 }
 .nav-title {
   position: relative;
-  left: 25%;
+  left: 32%;
   font-family: OpenDyslexic-Bold;
   font-size: 200%;
   border: 0ch;
 }
-.search-form {
-  position: relative;
-  left: 14.3%;
-}
-.management-choice {
+.btn-teacher {
   position: absolute;
-  left: 6%;
-  top: 85%;
+  left: 40%;
+  top: 30%;
+  width: 23%;
+  height: 10%;
 }
-.info {
+.btn-student {
   position: absolute;
-  left: 80%;
-  top: 20%;
-  width: 18%;
+  left: 40%;
+  top: 43%;
+  width: 23%;
+  height: 10%;
 }

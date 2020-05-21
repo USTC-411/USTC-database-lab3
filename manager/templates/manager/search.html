@@ -29,7 +29,7 @@
     <a class="navbar-brand nav-title">Information Search System</a>
   </nav>
 
-  <form class=all-form action="/search/global_search/">
+  <form class="all-form" action="/search/global_search/">
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text search-type">Global Search</span>
@@ -39,7 +39,7 @@
     </div>
   </form>
 
-  <form class=all-form>
+  <form class="all-form" action="/search/stu_search/">
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text search-type">Student Search</span>
@@ -57,10 +57,18 @@
         <span class="input-group-text all-item">Class</span>
       </div>
       <input type="text" class="form-control" name="StudentClass">
+      <div class="input-group-prepend">
+        <span class="input-group-text all-item">Sex</span>
+      </div>
+      <input type="text" class="form-control" list="typelist" name="StudentSex">
+      <datalist id="typelist">
+　　    <option value="male">
+        <option value="female">
+      </datalist>
       <button type="submit" class="btn btn-primary">Search</button>
     </div>
   </form>
-  <form class=all-form>
+  <form class="all-form" action="/search/cou_search/">
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text search-type">Course Search</span>
@@ -102,9 +110,9 @@
         {% for stu in stu_list %}
         <tr>
           <td>{{ stu.student_id }}</td>
-          <td>{{ stu.stu_name }}</td>
+          <td>{{ stu.name }}</td>
           <td>{{ stu.myClass }}</td>
-          <td>{{ stu.stu_sex }}</td>
+          <td>{{ stu.sex }}</td>
           <td>{{ stu.email }}</td>
           <td>{{ stu.birthday }}</td>
           <td>{{ stu.nationality }}</td>
@@ -126,13 +134,15 @@
         </tr>
       </thead>
       <tbody>
+        {% for cou in cou_list %}
         <tr>
-          <td>PB17061196</td>
-          <td>liwuchao</td>
-          <td>3</td>
-          <td>M</td>
-          <td>exam</td>
+          <td>{{ cou.ID }}</td>
+          <td>{{ cou.name }}</td>
+          <td>{{ cou.teacher }}</td>
+          <td>{{ cou.starttime }}</td>
+          <td>{{ cou.testtype }}</td>
         </tr>
+        {% endfor %}
       </tbody>
     </table>
 

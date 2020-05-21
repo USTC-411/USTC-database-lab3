@@ -23,6 +23,8 @@ urlpatterns = [
     path('IndexForStudent/', views.IndexForStudent),
     path('search/',search.index),
     path('search/global_search/',search.global_search),
+    path('search/stu_search/',search.stu_search),
+    path('search/cou_search/',search.cou_search),
     path('IndexForTeacher/', views.IndexForTeacher),
     #path('login/', views.login),
     path('login_student/', views.login_student),

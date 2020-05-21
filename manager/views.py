@@ -47,7 +47,7 @@ def login_student(request):#学生登录
             except:
                 message = '学号不正确！'
                 return render(request, Student_Login_Path, {'message': message,'state': 'Invalid id!'})#没有这个用户就返回登录界面
-            if (user.password == password): # 有的话还要检查密码是否正确
+            if (hash_code(user.password) == hash_code(password)): # 有的话还要检查密码是否正确
                 request.session['is_login'] = True
                 request.session['user_type'] = 'Student'
                 return redirect('/IndexForStudent/')
@@ -76,7 +76,7 @@ def login_teacher(request):#老师登录
             except:
                 message = '职工号不正确！'
                 return render(request, Teacher_Login_Path, {'message': message,'state': 'Invalid id!'})#没有这个用户就返回登录界面
-            if (user.password == password): # 有的话还要检查密码是否正确
+            if (hash_code(user.password) == hash_code(password)): # 有的话还要检查密码是否正确
                 request.session['is_login'] = True
                 request.session['user_type'] = 'Teacher'
                 #return render(request, Index_For_Teacher_Path)

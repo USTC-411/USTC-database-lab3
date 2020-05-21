@@ -154,52 +154,53 @@ class ValidLesson(models.Model): # 有效课程的模型定义，有效课程指
     (AUTUMN, '秋季学期')
   )
   # Enum value of lesson's begin time
-  class BEGIN_TIME_TYPE(models.IntegerChoices): # 开课时间的枚举类定义，建议折叠
-    MONDAY1 = 11
-    MONDAY2 = 12
-    MONDAY3 = 13
-    MONDAY4 = 14
-    MONDAY5 = 15
-    MONDAY6 = 16
-    MONDAY7 = 17
-    MONDAY8 = 18
-    MONDAY9 = 19
-    TUESDAY1 = 21
-    TUESDAY2 = 22
-    TUESDAY3 = 23
-    TUESDAY4 = 24
-    TUESDAY5 = 25
-    TUESDAY6 = 26
-    TUESDAY7 = 27
-    TUESDAY8 = 28
-    TUESDAY9 = 29
-    WEDNESDAY1 = 31
-    WEDNESDAY2 = 32
-    WEDNESDAY3 = 33
-    WEDNESDAY4 = 34
-    WEDNESDAY5 = 35
-    WEDNESDAY6 = 36
-    WEDNESDAY7 = 37
-    WEDNESDAY8 = 38
-    WEDNESDAY9 = 39
-    THURSDAY1 = 41
-    THURSDAY2 = 42
-    THURSDAY3 = 43
-    THURSDAY4 = 44
-    THURSDAY5 = 45
-    THURSDAY6 = 46
-    THURSDAY7 = 47
-    THURSDAY8 = 48
-    THURSDAY9 = 49
-    FRIDAY1 = 51
-    FRIDAY2 = 52
-    FRIDAY3 = 53
-    FRIDAY4 = 54
-    FRIDAY5 = 55
-    FRIDAY6 = 56
-    FRIDAY7 = 57
-    FRIDAY8 = 58
-    FRIDAY9 = 59
+  WEEK_TIME = (# 开课时间的枚举类定义，建议折叠
+    ('MONDAY1','Monday1'),
+    ('Monday2','Monday2'),
+    ('Monday3','Monday3'),
+    ('Monday4','Monday4'),
+    ('Monday5','Monday5'),
+    ('Monday6','Monday6'),
+    ('Monday7','Monday7'),
+    ('Monday8','Monday8'),
+    ('Monday9','Monday9'),
+    ('Tuesday1','Tuesday1'),
+    ('Tuesday2','Tuesday2'),
+    ('Tuesday3','Tuesday3'),
+    ('Tuesday4','Tuesday4'),
+    ('Tuesday5','Tuesday5'),
+    ('Tuesday6','Tuesday6'),
+    ('Tuesday7','Tuesday7'),
+    ('Tuesday8','Tuesday8'),
+    ('Tuesday9','Tuesday9'),
+    ('Wednesday1','Wednesday1'),
+    ('Wednesday2','Wednesday2'),
+    ('Wednesday3','Wednesday3'),
+    ('Wednesday4','Wednesday4'),
+    ('Wednesday5','Wednesday5'),
+    ('Wednesday6','Wednesday6'),
+    ('Wednesday7','Wednesday7'),
+    ('Wednesday8','Wednesday8'),
+    ('Wednesday9','Wednesday9'),
+    ('Thursday1','Thursday1'),
+    ('Thursday2','Thursday2'),
+    ('Thursday3' ,'Thursday3'),
+    ('Thursday4','Thursday4'),
+    ('Thursday5','Thursday5'),
+    ('Thursday6','Thursday6'),
+    ('Thursday7','Thursday7'),
+    ('Thursday8','Thursday8'),
+    ('Thursday9' ,'Thursday9'),
+    ('Friday1','Friday1'),
+    ('Friday2','Friday2'),
+    ('Friday3','Friday3'),
+    ('Friday4','Friday4'),
+    ('Friday5','Friday5'),
+    ('Friday6','Friday6'),
+    ('Friday7','Friday7'),
+    ('Friday8','Friday8'),
+    ('Friday9','Friday9')
+  )
   # Fields of this model
   lesson = models.OneToOneField( # 有效课程和所有的课程之间有一个一对一关系
     Lesson,
@@ -211,7 +212,7 @@ class ValidLesson(models.Model): # 有效课程的模型定义，有效课程指
   teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE) # 有一个外键，指向开课的老师
   begin_date = models.DateField()
   begin_semester = models.CharField(max_length=30, choices=SEMESTER)
-  begin_time = models.IntegerField(choices=BEGIN_TIME_TYPE.choices)
+  begin_time = models.CharField(max_length=30,choices=WEEK_TIME)
   # 与学生之间有一个多对多关系，关系的中间表为LessonSelect
   students = models.ManyToManyField(Student, related_name='students', through='LessonSelect') 
 

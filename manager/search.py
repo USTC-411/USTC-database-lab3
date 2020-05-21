@@ -11,13 +11,14 @@ def index(request):
 
 def global_search(request):
   stu_list=[]
-  stu={}
+  cou_list=[]
   global_info=""
   if request.method == "GET":
     global_info = request.GET.get('global_info').strip()
   if global_info:
-    stu_list = Student.objects.filter(Q(name__contains=StudentName) | Q(student_id__contains=StudentID)| Q(myClass__name__contains=global_info))
-  return render(request,'manager/search.html',{'stu_list':stu_list})
+    stu_list = Student.objects.filter(Q(name__contains=global_info) | Q(student_id__contains=global_info)| Q(myClass__name__contains=global_info))
+    cou_list = ValidLesson.objects.filter(Q(lesson__name__contains=global_info) | Q(teacher__name__contains=global_info) | Q(lesson__id__contains=global_info) | Q(lesson__test_type__contains=global_info))
+  return render(request,'manager/search.html',{'stu_list':stu_list,'cou_list':cou_list})
 
 def stu_search(request):
   stu_list = []

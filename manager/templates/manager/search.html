@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  {% load static %}
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static 'manager/css/Search.css' %}">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+  <title>Information Search</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-dark bg-dark top-bar">
+    <a class="navbar-brand logo">USTC</a>
+    <a class="navbar-brand nav-title">Information Search System</a>
+  </nav>
+
+  <form class="all-form" action="/search/global_search/">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text search-type">Global Search</span>
+      </div>
+      <input type="text" class="form-control" name="global_info">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+
+  <form class="all-form" action="/search/stu_search/">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text search-type">Student Search</span>
+      </div>
+      <div class="input-group-prepend">
+        <span class="input-group-text all-item">StudentID</span>
+      </div>
+      <input type="text" class="form-control" name="StudentID">
+      <div class="input-group-prepend">
+        <span class="input-group-text all-item">Name</span>
+      </div>
+      <input type="text" class="form-control" name="StudentName">
+
+      <div class="input-group-prepend">
+        <span class="input-group-text all-item">Class</span>
+      </div>
+      <input type="text" class="form-control" name="StudentClass">
+      <div class="input-group-prepend">
+        <span class="input-group-text all-item">Sex</span>
+      </div>
+      <input type="text" class="form-control" list="typelist" name="StudentSex">
+      <datalist id="typelist">
+        　　 <option value="male">
+        <option value="female">
+      </datalist>
+      <div class="input-group-prepend">
+        <span class="input-group-text all-item">Nationality</span>
+      </div>
+      <input type="text" class="form-control" name="StudentNation">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+  <form class="all-form" action="/search/cou_search/">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text search-type">Course Search</span>
+      </div>
+      <div class="input-group-prepend">
+        <span class="input-group-text all-item">CourseID</span>
+      </div>
+      <input type="text" class="form-control" name="CourseID">
+      <div class="input-group-prepend">
+        <span class="input-group-text all-item">Name</span>
+      </div>
+      <input type="text" class="form-control" name="CourseName">
+      <div class="input-group-prepend">
+        <span class="input-group-text all-item">Teacher</span>
+      </div>
+      <input type="text" class="form-control" name="CourseTeacher">
+      <div class="input-group-prepend">
+        <span class="input-group-text all-item">Time</span>
+      </div>
+      <input type="text" class="form-control" name="CourseTime">
+      <div class="input-group-prepend">
+        <span class="input-group-text all-item">Semester</span>
+      </div>
+      <input type="text" class="form-control" list="typelist2" name="CourseSemester">
+      <datalist id="typelist2">
+        　　 <option value="spring">
+        <option value="autumn">
+      </datalist>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+  <div class="all-table">
+    <h2>Student Table</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Student ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Class</th>
+          <th scope="col">Sex</th>
+          <th scope="col">Email</th>
+          <th scope="col">Birthday</th>
+          <th scope="col">Nationality</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for stu in stu_list %}
+        <tr>
+          <td>{{ stu.student_id }}</td>
+          <td>{{ stu.name }}</td>
+          <td>{{ stu.myClass }}</td>
+          <td>{{ stu.sex }}</td>
+          <td>{{ stu.email }}</td>
+          <td>{{ stu.birthday }}</td>
+          <td>{{ stu.nationality }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="all-table">
+    <h2>Course Table</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Course ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Teacher</th>
+          <th scope="col">Time</th>
+          <th scope="col">Test Type</th>
+          <th scope="col">Semester</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cou in cou_list %}
+        <tr>
+          <td>{{ cou.lesson.id }}</td>
+          <td>{{ cou.lesson.name }}</td>
+          <td>{{ cou.teacher }}</td>
+          <td>{{ cou.begin_time }}</td>
+          <td>{{ cou.lesson.test_type }}</td>
+          <td>{{ cou.begin_semester }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </div>
+
+</body>
+
+</html>

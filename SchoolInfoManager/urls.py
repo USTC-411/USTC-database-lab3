@@ -15,13 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from manager import views
 from manager.DataManage import campus
+from manager import views,search
 
 urlpatterns = [
     path('', views.entrance),
     path('admin/', admin.site.urls),
     path('IndexForStudent/', views.IndexForStudent),
+    path('search/',search.index),
+    path('search/global_search/',search.global_search),
+    path('search/stu_search/',search.stu_search),
+    path('search/cou_search/',search.cou_search),
     path('IndexForTeacher/', views.IndexForTeacher),
     #path('login/', views.login),
     path('login_student/', views.login_student),

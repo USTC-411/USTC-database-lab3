@@ -1,0 +1,53 @@
+@font-face {
+  font-family: TheyPerished;
+  src: url("../fonts/TheyPerished.ttf");
+}
+@font-face {
+  font-family: Ubuntu-Title;
+  src: url("../fonts/Ubuntu-Title.ttf");
+}
+@font-face {
+  font-family: OpenDyslexic-Bold;
+  src: url("../fonts/OpenDyslexic-Bold.otf");
+}
+
+.logo {
+  position: absolute;
+  font-family: TheyPerished;
+  font-size: 350%;
+  top: -17%;
+  left: 4%;
+  margin: 0%;
+  padding: 0%;
+  border: 0ch;
+  width: 0%;
+}
+.nav-title {
+  position: relative;
+  left: 35%;
+  font-family: OpenDyslexic-Bold;
+  font-size: 200%;
+  border: 0ch;
+}
+.all-form {
+  margin-top: 10px;
+}
+.search-type {
+  width: 130px;
+  color: darkseagreen;
+}
+.all-item {
+  width: 140px;
+  margin: 0 auto;
+}
+
+h2 {
+  text-align: center;
+  font-family: OpenDyslexic-Bold;
+}
+
+.all-table {
+  margin: 40px 60px 20px 60px;
+}
+
+

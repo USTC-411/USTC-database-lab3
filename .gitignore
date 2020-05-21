@@ -2,4 +2,4 @@
 */migrations/__pycache__/*
 *.sql
 *.sqlite3
-/.vscode/
+.vscode/*

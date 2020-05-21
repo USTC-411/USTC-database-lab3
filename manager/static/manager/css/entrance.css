@@ -1,0 +1,44 @@
+@font-face {
+  font-family: TheyPerished;
+  src: url("../fonts/TheyPerished.ttf");
+}
+@font-face {
+  font-family: Ubuntu-Title;
+  src: url("../fonts/Ubuntu-Title.ttf");
+}
+@font-face {
+  font-family: OpenDyslexic-Bold;
+  src: url("../fonts/OpenDyslexic-Bold.otf")
+}
+.logo {
+  position: absolute;
+  font-family: TheyPerished;
+  font-size: 350%;
+  top: -17%;
+  left: 4%;
+  margin: 0%;
+  padding: 0%;
+  border: 0ch;
+  width: 0%;
+}
+.nav-title {
+  position: relative;
+  left: 32%;
+  font-family: OpenDyslexic-Bold;
+  font-size: 200%;
+  border: 0ch;
+}
+.btn-teacher {
+  position: absolute;
+  left: 40%;
+  top: 30%;
+  width: 23%;
+  height: 10%;
+}
+.btn-student {
+  position: absolute;
+  left: 40%;
+  top: 43%;
+  width: 23%;
+  height: 10%;
+}

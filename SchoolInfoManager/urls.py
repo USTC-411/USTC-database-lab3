@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from manager import views
+from manager.DataManage import campus
 
 urlpatterns = [
     path('', views.entrance),
@@ -27,4 +28,5 @@ urlpatterns = [
     path('logout_student/', views.logout_student),
     path('login_teacher/', views.login_teacher),
     path('logout_teacher/', views.logout_teacher),
+    path('ManageCampus/', campus.campus)
 ]

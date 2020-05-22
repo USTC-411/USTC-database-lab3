@@ -59,7 +59,8 @@ def add(request):
                 request.session.get('user_type', 'Teacher')
                 authority = getAuthority('add', 'Major', 'Teacher', major_id, user_id)
                 if authority:
-                    new_major = models.Major(major_id, major_name, major_address,major_principal,major_campus)
+                    major_campus_in = models.Campus.objects.get(name = major_campus)
+                    new_major = models.Major(major_id, major_name, major_address, major_principal, campus=major_campus_in)
                     new_major.save()
                 else:
                     message = 'Do not have the right of this operation'
@@ -68,7 +69,8 @@ def add(request):
                     request.session.get('user_type', 'Student')
                     authority = getAuthority('add', 'Major', 'Student', major_id, user_id)
                     if authority:
-                        new_major = models.Major(major_id, major_name, major_address, major_principal, major_campus)
+                        major_campus_in = models.Campus.objects.get(name = major_campus)
+                        new_major = models.Major(major_id, major_name, major_address, major_principal, campus=major_campus_in)
                         new_major.save()
                     else:
                         message = 'Do not have the right of this operation'
@@ -117,7 +119,7 @@ def delete(request):
         request.session.get('user_type', 'Teacher')
         authority = getAuthority('delete', 'Major', 'Teacher', to_be_deleted_id, user_id)
         if authority:
-            if to_be_deleted.major.count() == 0:
+            if to_be_deleted.Lesson.count() == 0 and to_be_deleted.Teacher.count() == 0 and to_be_deleted.myClass.count() == 0:
                 to_be_deleted.delete()
             else:
                 message = "You cannot delete it, because it's referenced by others"
@@ -128,7 +130,7 @@ def delete(request):
             request.session.get('user_type', 'Student')
             authority = getAuthority('delete', 'Major', 'Student', to_be_deleted_id, user_id)
             if authority:
-                if to_be_deleted.major.count() == 0:
+                if to_be_deleted.Lesson.count() == 0 and to_be_deleted.Teacher.count() == 0 and to_be_deleted.myClass.count() == 0:
                     to_be_deleted.delete()
                 else:
                     message = "You cannot delete it, because it's referenced by others"

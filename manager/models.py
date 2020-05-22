@@ -27,7 +27,7 @@ class myClass(models.Model): # 班级的模型定义，因为与关键字冲突�
   date = models.DateField()
   head_teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE, related_name='myClass')
   grade = models.DateField()
-  major = models.ForeignKey('Major', on_delete=models.CASCADE) # 有一个外键，默认指向专业的主键，也就是id
+  major = models.ForeignKey('Major', on_delete=models.CASCADE,related_name='myClass') # 有一个外键，默认指向专业的主键，也就是id
   def __str__(self):
     return self.name
 
@@ -73,7 +73,7 @@ class Teacher(Person): # 老师模型的定义，继承Person类
   # Fields for model
   teacher_id = models.CharField(max_length=30, unique=True)
   password = models.CharField(max_length=256, default="123456")
-  major = models.ForeignKey('Major', on_delete=models.CASCADE) # 有一个外键，默认指向专业的主键，也就是id
+  major = models.ForeignKey('Major', on_delete=models.CASCADE, related_name='Teacher') # 有一个外键，默认指向专业的主键，也就是id
   title = models.CharField(max_length=30, choices=TITLE_TYPE)
   def __str__(self):
     return self.name
@@ -141,7 +141,7 @@ class Lesson(models.Model): # 课程模型的定义
   # Fields of this model
   id = models.CharField(max_length=30, primary_key=True)
   name = models.CharField(max_length=30, unique=True)
-  major = models.ForeignKey('Major', on_delete=models.CASCADE) # 有一个外键，默认指向专业的主键，也就是id
+  major = models.ForeignKey('Major', on_delete=models.CASCADE,related_name="Lesson") # 有一个外键，默认指向专业的主键，也就是id
   test_type = models.CharField(max_length=30, choices=TEST_TYPE, default=TEST)
   lesson_status = models.CharField(max_length=30, choices=LESSON_STATUS, default=INVALID)
 

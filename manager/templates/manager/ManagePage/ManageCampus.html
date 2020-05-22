@@ -81,9 +81,9 @@
       </div>
       <div class="btn-group m-6 form-button" role="group" aria-label="Basic example">
         <button type="submit" class="btn btn-primary">Add</button>
+        <button class="btn btn-danger add-close-btn" id="add-close-btn" onclick="CloseForm()">Close</button>
       </div>
     </form>
-    <button class="btn btn-danger add-close-btn" id="add-close-btn" onclick="CloseForm()">Close</button>
     {% if modify_tag != -1 %}
       <form class="modify-form bg-light" id="modify-form" action="/ManageCampus/modify/?tag={{modify_tag}}" method="POST">
         {% csrf_token %}
@@ -97,9 +97,9 @@
         </div>
         <div class="btn-group m-6 form-button" role="group" aria-label="Basic example">
           <button type="submit" class="btn btn-primary">Modify</button>
+          <button class="btn btn-danger modify-close-btn" id="modify-close-btn" onclick="CloseModification()">Close</button>
         </div>
       </form>
-      <button class="btn btn-danger modify-close-btn" id="modify-close-btn" onclick="CloseModification()">Close</button>
     {% endif %}
   </body>
 </html>

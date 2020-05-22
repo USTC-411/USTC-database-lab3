@@ -50,6 +50,7 @@ def login_student(request):#学生登录
             if (hash_code(user.password) == hash_code(password)): # 有的话还要检查密码是否正确
                 request.session['is_login'] = True
                 request.session['user_type'] = 'Student'
+                request.session['user_id'] = user_id
                 return redirect('/IndexForStudent/')
             else:
                 message = '密码不正确！'
@@ -79,7 +80,7 @@ def login_teacher(request):#老师登录
             if (hash_code(user.password) == hash_code(password)): # 有的话还要检查密码是否正确
                 request.session['is_login'] = True
                 request.session['user_type'] = 'Teacher'
-                #return render(request, Index_For_Teacher_Path)
+                request.session['user_id'] = user_id
                 return redirect('/IndexForTeacher/')
             else:
                 message = '密码不正确！'

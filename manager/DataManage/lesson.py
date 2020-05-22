@@ -119,10 +119,11 @@ def delete(request):
         request.session.get('user_type', 'Teacher')
         authority = getAuthority('delete', 'Lesson', 'Teacher', to_be_deleted_id, user_id)
         if authority:
-            if to_be_deleted.Lesson.count() == 0 and to_be_deleted.Teacher.count() == 0 and to_be_deleted.myClass.count() == 0:
-                to_be_deleted.delete()
-            else:
+            try:
+                to_be_deleted.valid_status   
                 message = "You cannot delete it, because it's referenced by others"
+            except:
+                to_be_deleted.delete()
         else:
             message = 'Do not have the right of this operation'
     except:
@@ -130,10 +131,11 @@ def delete(request):
             request.session.get('user_type', 'Student')
             authority = getAuthority('delete', 'Lesson', 'Student', to_be_deleted_id, user_id)
             if authority:
-                if to_be_deleted.Lesson.count() == 0 and to_be_deleted.Teacher.count() == 0 and to_be_deleted.myClass.count() == 0:
-                    to_be_deleted.delete()
-                else:
+                try:
+                    to_be_deleted.valid_status   
                     message = "You cannot delete it, because it's referenced by others"
+                except:
+                    to_be_deleted.delete()
             else:
                 message = 'Do not have the right of this operation'
         except:
@@ -182,12 +184,12 @@ def query(request):
                 query_result = models.Lesson.objects.filter(id=query_val)
             elif option == 'name':
                 query_result = models.Lesson.objects.filter(name=query_val)
-            elif option == 'address':
-                query_result = models.Lesson.objects.filter(address=query_val)
-            elif option == 'principal':
-                query_result = models.Lesson.objects.filter(principal=query_val)
-            elif option == 'campus':
-                query_result = models.Lesson.objects.filter(campus=query_val)
+            elif option == 'major':
+                query_result = models.Lesson.objects.filter(major=query_val)
+            elif option == 'test_type':
+                query_result = models.Lesson.objects.filter(test_type=query_val)
+            elif option == 'lesson_status':
+                query_result = models.Lesson.objects.filter(lesson_status=query_val)
             for result in query_result: # 剔除所有结果中的非法结果
                 authority = getAuthority('query', 'Lesson', 'Teacher', result.id, user_id) # 检查用户对该元素的query权限
                 if authority:
@@ -199,12 +201,12 @@ def query(request):
                     query_result = models.Lesson.objects.filter(id=query_val)
                 elif option == 'name':
                     query_result = models.Lesson.objects.filter(name=query_val)
-                elif option == 'address':
-                    query_result = models.Lesson.objects.filter(address=query_val)
-                elif option == 'principal':
-                    query_result = models.Lesson.objects.filter(principal=query_val)
-                elif option == 'campus':
-                    query_result = models.Lesson.objects.filter(campus=query_val)
+                elif option == 'major':
+                    query_result = models.Lesson.objects.filter(major=query_val)
+                elif option == 'test_type':
+                    query_result = models.Lesson.objects.filter(test_type=query_val)
+                elif option == 'lesson_status':
+                    query_result = models.Lesson.objects.filter(lesson_status=query_val)
                 for result in query_result: # 剔除所有结果中的非法结果
                     authority = getAuthority('query', 'Lesson', 'Student', result.id, user_id) # 检查用户对该元素的query权限
                     if authority:
@@ -233,8 +235,9 @@ def modify(request):
         if modify_form.is_valid():
             lesson_name = modify_form.cleaned_data.get('name')
             lesson_address = modify_form.cleaned_data.get('address')
-            lesson_principal = modify_form.cleaned_data.get('principal')
-            lesson_campus = modify_form.cleaned_data.get('campus')
+            lesson_major = modify_form.cleaned_data.get('major')
+            lesson_test_type = modify_form.cleaned_data.get('test_type')
+            lesson_status = modify_form.cleaned_data.get('lesson_status')
             tag = request.GET.get('tag')
             to_be_modified = models.Lesson.objects.get(id=tag)
             try: # 如果用户是老师
@@ -243,8 +246,9 @@ def modify(request):
                 if authority:
                     to_be_modified.name = lesson_name
                     to_be_modified.address = lesson_address
-                    to_be_modified.principal = lesson_principal
-                    to_be_modified.campus = lesson_campus
+                    to_be_modified.major = lesson_major
+                    to_be_modified.test_type = lesson_test_type
+                    to_be_modified.lesson_status = lesson_status
                     to_be_modified.save()
                 else:
                     message = 'Do not have the right of this operation'
@@ -255,8 +259,9 @@ def modify(request):
                     if authority:
                         to_be_modified.name = lesson_name
                         to_be_modified.address = lesson_address
-                        to_be_modified.principal = lesson_principal
-                        to_be_modified.campus = lesson_campus
+                        to_be_modified.major = lesson_major
+                        to_be_modified.test_type = lesson_test_type
+                        to_be_modified.lesson_status = lesson_status
                         to_be_modified.save()
                     else:
                         message = 'Do not have the right of this operation'

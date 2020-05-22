@@ -32,5 +32,9 @@ urlpatterns = [
     path('logout_student/', views.logout_student),
     path('login_teacher/', views.login_teacher),
     path('logout_teacher/', views.logout_teacher),
-    path('ManageCampus/', campus.campus)
+    path('ManageCampus/', campus.campus),
+    path('ManageCampus/add/', campus.add),
+    path('ManageCampus/delete/', campus.delete),
+    path('ManageCampus/query/', campus.query),
+    path('ManageCampus/modify/', campus.modify),
 ]

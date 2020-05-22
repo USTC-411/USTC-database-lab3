@@ -1,8 +1,48 @@
 .query-form {
   position: relative;
-  left: 17%;
+  left: 12%;
+  width: 45%;
+}
+.search-filter {
+  position: relative;
+  left: -13%;
 }
 .page-roller {
-  position: relative;
+  position: absolute;
+  top: 91%;
   left: 39%;
+}
+.add-form {
+  position: absolute;
+  width: 85%;
+  height: 70%;
+  left: 7.5%;
+  top: 10%;
+  z-index: 10;
+  visibility: hidden;
+}
+.form-button {
+  position: relative;
+  left: 43%;
+}
+.add-close-btn {
+  position: absolute;
+  left: 52%;
+  top: 66.7%;
+  visibility: hidden;
+  z-index: 10;
+}
+.modify-form {
+  position: absolute;
+  width: 85%;
+  height: 70%;
+  left: 7.5%;
+  top: 10%;
+  z-index: 10;
+}
+.modify-close-btn {
+  position: absolute;
+  left: 56%;
+  top: 52.7%;
+  z-index: 10;
 }

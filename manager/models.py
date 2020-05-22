@@ -17,7 +17,7 @@ class Major(models.Model): # 专业模型的定义
   name = models.CharField(max_length=30)
   address = models.CharField(max_length=30)
   principal = models.CharField(max_length=30)
-  campus = models.ForeignKey('Campus', on_delete=models.CASCADE) # 有一个外键，默认指向校区的主键，也就是id
+  campus = models.ForeignKey('Campus', on_delete=models.CASCADE, related_name='major') # 有一个外键，默认指向校区的主键，也就是id
   def __str__(self):
     return self.name
 

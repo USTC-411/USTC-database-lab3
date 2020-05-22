@@ -158,3 +158,53 @@ class Teacher_modify(forms.ModelForm):
       'major': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
       'title': forms.Select(choices=TITLE_TYPE, attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
     }
+
+class Lesson(forms.ModelForm):
+  class Meta:
+    TEST = 'test'
+    DEBATE = 'debate'
+    TEST_TYPE = (
+      (TEST, '考试'),
+      (DEBATE, '答辩')
+    )
+    # Enum value of lesson status
+    VALID = 'valid'
+    INVALID = 'invalid'
+    LESSON_STATUS = (
+      (VALID, '开课'),
+      (INVALID, '未开课')
+    )
+    model = models.Lesson
+    fields = ('id','name', 'major', 'test_type','lesson_status',)
+    widgets = {
+      'id': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson id",'autofocus': ''}),
+      'name': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson name",'autofocus': ''}),
+      'major': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson major",'autofocus': ''}),
+      'test_type': forms.Select(choices=TEST_TYPE,attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson test_type",'autofocus': ''}),
+      'lesson_status': forms.Select(choices=LESSON_STATUS,attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson status",'autofocus': ''}),
+    }
+
+
+class Lesson_modify(forms.ModelForm):
+  class Meta:
+    TEST = 'test'
+    DEBATE = 'debate'
+    TEST_TYPE = (
+      (TEST, '考试'),
+      (DEBATE, '答辩')
+    )
+    # Enum value of lesson status
+    VALID = 'valid'
+    INVALID = 'invalid'
+    LESSON_STATUS = (
+      (VALID, '开课'),
+      (INVALID, '未开课')
+    )
+    model = models.Lesson
+    fields = ('name', 'major', 'test_type','lesson_status',)
+    widgets = {
+      'name': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson name",'autofocus': ''}),
+      'major': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson major",'autofocus': ''}),
+      'test_type': forms.Select(choices=TEST_TYPE,attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson test_type",'autofocus': ''}),
+      'lesson_status': forms.Select(choices=LESSON_STATUS,attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson status",'autofocus': ''}),
+    }

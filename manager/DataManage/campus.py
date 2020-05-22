@@ -9,19 +9,38 @@ from manager.DataManage.authority import getAuthority
 
 def campus(request):
     modify_tag = -1
+    message = ''
+    show_result = []
+    campus_set = models.Campus.objects.all()
+    user_id = request.session['user_id']
     if request.GET.get('modify_tag'):
         modify_tag = request.GET.get('modify_tag')
+    try: # 如果用户是老师
+        request.session.get('user_type', 'Teacher')
+        for result in campus_set: # 剔除所有结果中的非法结果
+            authority = getAuthority('query', 'Campus', 'Student', result.id, user_id) # 检查用户对该元素的query权限
+            if authority:
+                show_result.append(result)
+    except:
+        try: # 如果用户是学生
+            request.session.get('user_type', 'Student')
+            for result in campus_set: # 剔除所有结果中的非法结果
+                authority = getAuthority('query', 'Campus', 'Student', result.id, user_id) # 检查用户对该元素的query权限
+                if authority:
+                    show_result.append(result)
+        except:
+            message = 'Please login'
     campus_form = forms.Campus()
     campus_modify_form = forms.Campus_modify()
-    campus_set = models.Campus.objects.all()
     return render(
         request,
         'manager/ManagePage/ManageCampus.html',
         {
-            'campus_set' : campus_set,
+            'campus_set' : show_result,
             'campus_form' : campus_form,
             'modify_tag' : modify_tag,
             'campus_modify_form' : campus_modify_form,
+            'message': message,
         }
     )
 
@@ -56,14 +75,31 @@ def add(request):
                     message = 'Please login'
         else:
             message = "Please check what you've entered"
+    # 渲染动态页面
     campus_set = models.Campus.objects.all()
+    show_result = []
+    try: # 如果用户是老师
+        request.session.get('user_type', 'Teacher')
+        for result in campus_set: # 剔除所有结果中的非法结果
+            authority = getAuthority('query', 'Campus', 'Student', result.id, user_id) # 检查用户对该元素的query权限
+            if authority:
+                show_result.append(result)
+    except:
+        try: # 如果用户是学生
+            request.session.get('user_type', 'Student')
+            for result in campus_set: # 剔除所有结果中的非法结果
+                authority = getAuthority('query', 'Campus', 'Student', result.id, user_id) # 检查用户对该元素的query权限
+                if authority:
+                    show_result.append(result)
+        except:
+            message = 'Please login'
     campus_form = forms.Campus()
     campus_modify_form = forms.Campus_modify()
     return render(
         request,
         'manager/ManagePage/ManageCampus.html',
         {
-            'campus_set' : campus_set,
+            'campus_set' : show_result,
             'campus_form' : campus_form,
             'modify_tag' : -1,
             'campus_modify_form' : campus_modify_form,
@@ -196,7 +232,24 @@ def modify(request):
             
         else:
             message = 'Please check out what you write'
+    # 渲染动态页面
     campus_set = models.Campus.objects.all()
+    show_result = []
+    try: # 如果用户是老师
+        request.session.get('user_type', 'Teacher')
+        for result in campus_set: # 剔除所有结果中的非法结果
+            authority = getAuthority('query', 'Campus', 'Student', result.id, user_id) # 检查用户对该元素的query权限
+            if authority:
+                show_result.append(result)
+    except:
+        try: # 如果用户是学生
+            request.session.get('user_type', 'Student')
+            for result in campus_set: # 剔除所有结果中的非法结果
+                authority = getAuthority('query', 'Campus', 'Student', result.id, user_id) # 检查用户对该元素的query权限
+                if authority:
+                    show_result.append(result)
+        except:
+            message = 'Please login'
     campus_form = forms.Campus()
     campus_modify_form = forms.Campus_modify()
     return render(

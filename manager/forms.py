@@ -158,3 +158,64 @@ class Teacher_modify(forms.ModelForm):
       'major': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
       'title': forms.Select(choices=TITLE_TYPE, attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
     }
+
+class MajorTransfer(forms.ModelForm): 
+  class Meta:
+    model = models.MajorTransfer
+    fields = ('change_id', 'change_date', 'student', 'original_class', 'current_class', 'has_transfered_communist_youth_league_relationship')
+    widgets = {
+      'change_id': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'change_date': forms.DateInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'student': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'original_class': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'current_class': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'has_transfered_communist_youth_league_relationship': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+    }
+
+class MajorTransfer_modify(forms.ModelForm):
+  class Meta:
+    model = models.MajorTransfer
+    fields = ('change_date', 'original_class', 'current_class', 'has_transfered_communist_youth_league_relationship')
+    widgets = {
+      'change_date': forms.DateInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'original_class': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'current_class': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'has_transfered_communist_youth_league_relationship': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+    }
+
+class GradeTransfer(forms.ModelForm): 
+  class Meta:
+    model = models.GradeTransfer
+    # Enum value of degrade reason
+    SUSPENSION = 'suspension'
+    VOLUNTEER_TEACHING = 'volunteer_teaching'
+    DEGRADE_REASON = (
+      (SUSPENSION, '休学'),
+      (VOLUNTEER_TEACHING, '支教')
+    )
+    fields = ('change_id', 'change_date', 'original_class', 'current_class', 'degrade_reason')
+    widgets = {
+      'change_id': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'change_date': forms.DateInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'original_class': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'current_class': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'degrade_reason': forms.Select(choices=DEGRADE_REASON, attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+    }
+
+class GradeTransfer_modify(forms.ModelForm):
+  class Meta:
+    model = models.GradeTransfer
+    # Enum value of degrade reason
+    SUSPENSION = 'suspension'
+    VOLUNTEER_TEACHING = 'volunteer_teaching'
+    DEGRADE_REASON = (
+      (SUSPENSION, '休学'),
+      (VOLUNTEER_TEACHING, '支教')
+    )
+    fields = ('change_date', 'original_class', 'current_class', 'degrade_reason')
+    widgets = {
+      'change_date': forms.DateInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'original_class': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'current_class': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'degrade_reason': forms.Select(choices=DEGRADE_REASON, attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+    }

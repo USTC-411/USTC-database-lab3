@@ -86,7 +86,7 @@ class Student(Person): # 学生模型的定义，继承Person类
     return self.name
 
 class StatusChange(models.Model): # 学籍异动的模型定义，作为一个抽象类，子类为之后定义的转专业和降级
-  chenge_id = models.CharField(max_length=30, primary_key=True)
+  change_id = models.CharField(max_length=30, primary_key=True)
   change_date = models.DateField()
   class Meta:
     abstract = True
@@ -97,6 +97,7 @@ class MajorTransfer(StatusChange): # 转专业的模型定义，继承自学籍�
     on_delete = models.CASCADE,
     related_name = 'major_transfer'
   )
+  major = models.ForeignKey('Major', on_delete=models.CASCADE, related_name="major_transfer", default="1")
   # 有一个外键，默认指向班级的主键，可以在班级中通过major_original_class属性来访问这一条转专业记录
   original_class = models.ForeignKey('myClass', on_delete=models.CASCADE, related_name="major_original_class")
   # 有一个外键，默认指向班级的主键，可以在班级中通过major_current_class属性来访问

@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>学生信息显示</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入bootstrap -->
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'manager/css/campus.css' %}">
+    <script type="text/javascript" src="{% static 'manager/js/campus.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+  </head>
+  <body>
+    {% if message %}
+      <div class="alert alert-warning">{{ message }}</div>
+    {% endif %}
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+      <a class="navbar-brand nav-title">MajorTransfer Management</a>
+      <form class="form-inline search-form query-form" action="/ManageMajorTransfer/query/" method="GET">
+        <div class="col-md-3 search-filter">
+          <select class="custom-select" required name="option">
+            <option selected disabled value="">Choose filter</option>
+            <option>change_id</option>
+            <option>change_date</option>
+            <option>student</option>
+            <option>original_class</option>
+            <option>current_class</option>
+            <option>relationship</option>
+          </select>
+        </div>
+        <input class="form-control mr-sm-1" type="search" placeholder="type in constrains" aria-label="Search" name="query_val">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Query</button>
+      </form>
+      <button class="btn btn-success" type="submit" onclick="Popup()">Add</button>
+    </nav>
+
+    <table class="table table-secondary">
+      <thead>
+        <tr>
+          <th scope="col">MajorTransfer change_id</th>
+          <th scope="col">MajorTransfer change_date</th>
+          <th scope="col">MajorTransfer student</th>
+          <th scope="col">MajorTransfer original_class</th>
+          <th scope="col">MajorTransfer current_class</th>
+          <th scope="col">relationship</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for major_transfer in major_transfer_set %}
+        <tr>
+          <td>{{ major_transfer.change_id }}</td>
+          <td>{{ major_transfer.change_date }}</td>
+          <td>{{ major_transfer.student }}</td>
+          <td>{{ major_transfer.original_class }}</td>
+          <td>{{ major_transfer.current_class }}</td>
+          <td>{{ major_transfer.has_transfered_communist_youth_league_relationship }}</td>
+          <td>
+            <a class="btn btn-danger" role="button" href="/ManageMajorTransfer/delete/?id={{major_transfer.change_id}}">
+              Delete
+            </a>
+          </td>
+          <td>
+            <a class="btn btn-warning" role="button" href="/ManageMajorTransfer/?modify_tag={{major_transfer.change_id}}">
+              Modify
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <form class="add-form bg-light" id="add-form" action="/ManageMajorTransfer/add/" method="POST">
+      {% csrf_token %}
+      <div class="form-group row m-4">
+        <label for="colFormLabelSm" class="col-sm-2 col-form-label">change_id</label>
+        {{ major_transfer_form.change_id }}
+      </div>
+      <div class="form-group row m-4">
+        <label for="colFormLabel" class="col-sm-2 col-form-label">change_date</label>
+        {{ major_transfer_form.change_date }}
+      </div>
+      <div class="form-group row m-4">
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">student</label>
+        {{ major_transfer_form.student }}
+      </div>
+      <div class="form-group row m-4">
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">original_class</label>
+        {{ major_transfer_form.original_class }}
+      </div>
+      <div class="form-group row m-4">
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">current_class</label>
+        {{ major_transfer_form.current_class }}
+      </div>
+      <div class="form-group row m-4">
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">has_transfered_communist_youth_league_relationship</label>
+        {{ major_transfer_form.has_transfered_communist_youth_league_relationship }}
+      </div>
+      <div class="btn-group m-6 form-button" role="group" aria-label="Basic example">
+        <button type="submit" class="btn btn-primary">Add</button>
+        <button class="btn btn-danger add-close-btn" id="add-close-btn" onclick="CloseForm()">Close</button>
+      </div>
+    </form>
+    {% if modify_tag != -1 %}
+      <form class="modify-form bg-light" id="modify-form" action="/ManageMajorTransfer/modify/?tag={{modify_tag}}" method="POST">
+        {% csrf_token %}
+        <div class="form-group row m-4">
+          <label for="colFormLabel" class="col-sm-2 col-form-label">change_date</label>
+          {{ major_transfer_modify_form.change_date }}
+        </div>
+        <div class="form-group row m-4">
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label">original_class</label>
+          {{ major_transfer_modify_form.original_class }}
+        </div>
+        <div class="form-group row m-4">
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label">current_class</label>
+          {{ major_transfer_modify_form.current_class }}
+        </div>
+        <div class="form-group row m-4">
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label">has_transfered_communist_youth_league_relationship</label>
+          {{ major_transfer_modify_form.has_transfered_communist_youth_league_relationship }}
+        </div>
+        <div class="btn-group m-6 form-button" role="group" aria-label="Basic example">
+          <button type="submit" class="btn btn-primary">Modify</button>
+          <button class="btn btn-danger modify-close-btn" id="modify-close-btn" onclick="CloseModification()">Close</button>
+        </div>
+      </form>
+    {% endif %}
+  </body>
+</html>

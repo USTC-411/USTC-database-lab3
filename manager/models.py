@@ -25,7 +25,7 @@ class myClass(models.Model): # 班级的模型定义，因为与关键字冲突�
   id = models.CharField(max_length=30, primary_key=True)
   name = models.CharField(max_length=30)
   date = models.DateField()
-  head_teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE, related_name='myClass')
+  head_teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE, related_name='HostClass')
   grade = models.DateField()
   major = models.ForeignKey('Major', on_delete=models.CASCADE) # 有一个外键，默认指向专业的主键，也就是id
   def __str__(self):

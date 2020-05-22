@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -20,8 +19,8 @@
       <div class="alert alert-warning">{{ message }}</div>
     {% endif %}
     <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-      <a class="navbar-brand nav-title">MajorTransfer Management</a>
-      <form class="form-inline search-form query-form" action="/ManageMajorTransfer/query/" method="GET">
+      <a class="navbar-brand nav-title">GradeTransfer Management</a>
+      <form class="form-inline search-form query-form" action="/ManageGradeTransfer/query/" method="GET">
         <div class="col-md-3 search-filter">
           <select class="custom-select" required name="option">
             <option selected disabled value="">Choose filter</option>
@@ -30,7 +29,7 @@
             <option>student</option>
             <option>original_class</option>
             <option>current_class</option>
-            <option>relationship</option>
+            <option>GradeTransfer reason</option>
           </select>
         </div>
         <input class="form-control mr-sm-1" type="search" placeholder="type in constrains" aria-label="Search" name="query_val">
@@ -42,30 +41,30 @@
     <table class="table table-secondary">
       <thead>
         <tr>
-          <th scope="col">MajorTransfer change_id</th>
-          <th scope="col">MajorTransfer change_date</th>
-          <th scope="col">MajorTransfer student</th>
-          <th scope="col">MajorTransfer original_class</th>
-          <th scope="col">MajorTransfer current_class</th>
-          <th scope="col">relationship</th>
+          <th scope="col">GradeTransfer change_id</th>
+          <th scope="col">GradeTransfer change_date</th>
+          <th scope="col">GradeTransfer student</th>
+          <th scope="col">GradeTransfer original_class</th>
+          <th scope="col">GradeTransfer current_class</th>
+          <th scope="col">GradeTransfer reason</th>
         </tr>
       </thead>
       <tbody>
-        {% for major_transfer in major_transfer_set %}
+        {% for grade_transfer in grade_transfer_set %}
         <tr>
-          <td>{{ major_transfer.change_id }}</td>
-          <td>{{ major_transfer.change_date }}</td>
-          <td>{{ major_transfer.student.student_id }}</td>
-          <td>{{ major_transfer.original_class.id }}</td>
-          <td>{{ major_transfer.current_class.id }}</td>
-          <td>{{ major_transfer.has_transfered_communist_youth_league_relationship }}</td>
+          <td>{{ grade_transfer.change_id }}</td>
+          <td>{{ grade_transfer.change_date }}</td>
+          <td>{{ grade_transfer.student.student_id }}</td>
+          <td>{{ grade_transfer.original_class.id }}</td>
+          <td>{{ grade_transfer.current_class.id }}</td>
+          <td>{{ grade_transfer.degrade_reason }}</td>
           <td>
-            <a class="btn btn-danger" role="button" href="/ManageMajorTransfer/delete/?id={{major_transfer.change_id}}">
+            <a class="btn btn-danger" role="button" href="/ManageGradeTransfer/delete/?id={{grade_transfer.change_id}}">
               Delete
             </a>
           </td>
           <td>
-            <a class="btn btn-warning" role="button" href="/ManageMajorTransfer/?modify_tag={{major_transfer.change_id}}">
+            <a class="btn btn-warning" role="button" href="/ManageGradeTransfer/?modify_tag={{grade_transfer.change_id}}">
               Modify
             </a>
           </td>
@@ -74,31 +73,31 @@
       </tbody>
     </table>
 
-    <form class="add-form bg-light" id="add-form" action="/ManageMajorTransfer/add/" method="POST">
+    <form class="add-form bg-light" id="add-form" action="/ManageGradeTransfer/add/" method="POST">
       {% csrf_token %}
       <div class="form-group row m-4">
         <label for="colFormLabelSm" class="col-sm-2 col-form-label">change_id</label>
-        {{ major_transfer_form.change_id }}
+        {{ grade_transfer_form.change_id }}
       </div>
       <div class="form-group row m-4">
         <label for="colFormLabel" class="col-sm-2 col-form-label">change_date</label>
-        {{ major_transfer_form.change_date }}
+        {{ grade_transfer_form.change_date }}
       </div>
       <div class="form-group row m-4">
         <label for="colFormLabelLg" class="col-sm-2 col-form-label">student</label>
-        {{ major_transfer_form.student }}
+        {{ grade_transfer_form.student }}
       </div>
       <div class="form-group row m-4">
         <label for="colFormLabelLg" class="col-sm-2 col-form-label">original_class</label>
-        {{ major_transfer_form.original_class }}
+        {{ grade_transfer_form.original_class }}
       </div>
       <div class="form-group row m-4">
         <label for="colFormLabelLg" class="col-sm-2 col-form-label">current_class</label>
-        {{ major_transfer_form.current_class }}
+        {{ grade_transfer_form.current_class }}
       </div>
       <div class="form-group row m-4">
-        <label for="colFormLabelLg" class="col-sm-2 col-form-label">has_transfered_communist_youth_league_relationship</label>
-        {{ major_transfer_form.has_transfered_communist_youth_league_relationship }}
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">degrade_reason</label>
+        {{ grade_transfer_form.degrade_reason }}
       </div>
       <div class="btn-group m-6 form-button" role="group" aria-label="Basic example">
         <button type="submit" class="btn btn-primary">Add</button>
@@ -106,23 +105,23 @@
       </div>
     </form>
     {% if modify_tag != -1 %}
-      <form class="modify-form bg-light" id="modify-form" action="/ManageMajorTransfer/modify/?tag={{modify_tag}}" method="POST">
+      <form class="modify-form bg-light" id="modify-form" action="/ManageGradeTransfer/modify/?tag={{modify_tag}}" method="POST">
         {% csrf_token %}
         <div class="form-group row m-4">
           <label for="colFormLabel" class="col-sm-2 col-form-label">change_date</label>
-          {{ major_transfer_modify_form.change_date }}
+          {{ grade_transfer_modify_form.change_date }}
         </div>
         <div class="form-group row m-4">
           <label for="colFormLabelLg" class="col-sm-2 col-form-label">original_class</label>
-          {{ major_transfer_modify_form.original_class }}
+          {{ grade_transfer_modify_form.original_class }}
         </div>
         <div class="form-group row m-4">
           <label for="colFormLabelLg" class="col-sm-2 col-form-label">current_class</label>
-          {{ major_transfer_modify_form.current_class }}
+          {{ grade_transfer_modify_form.current_class }}
         </div>
         <div class="form-group row m-4">
-          <label for="colFormLabelLg" class="col-sm-2 col-form-label">has_transfered_communist_youth_league_relationship</label>
-          {{ major_transfer_modify_form.has_transfered_communist_youth_league_relationship }}
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label">degrade_reason</label>
+          {{ grade_transfer_modify_form.degrade_reason }}
         </div>
         <div class="btn-group m-6 form-button" role="group" aria-label="Basic example">
           <button type="submit" class="btn btn-primary">Modify</button>

@@ -32,6 +32,7 @@ def getAuthority(operation, target, identity, target_id, identity_id):
       return False
 
   elif target == 'Teacher':
+    return True
     if operation == 'add':
       return False
     elif operation == 'delete':

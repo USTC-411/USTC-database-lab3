@@ -18,7 +18,7 @@ def campus(request):
     try: # 如果用户是老师
         request.session.get('user_type', 'Teacher')
         for result in campus_set: # 剔除所有结果中的非法结果
-            authority = getAuthority('query', 'Campus', 'Teacher', result.id, user_id) # 检查用户对该元素的query权限
+            authority = getAuthority('query', 'Campus', 'Student', result.id, user_id) # 检查用户对该元素的query权限
             if authority:
                 show_result.append(result)
     except:
@@ -81,7 +81,7 @@ def add(request):
     try: # 如果用户是老师
         request.session.get('user_type', 'Teacher')
         for result in campus_set: # 剔除所有结果中的非法结果
-            authority = getAuthority('query', 'Campus', 'Teacher', result.id, user_id) # 检查用户对该元素的query权限
+            authority = getAuthority('query', 'Campus', 'Student', result.id, user_id) # 检查用户对该元素的query权限
             if authority:
                 show_result.append(result)
     except:
@@ -108,7 +108,7 @@ def add(request):
     )
 
 def delete(request):
-    to_be_deleted_id = request.GET.get('id')
+    to_be_deleted_id = request.GET.get('id');
     to_be_deleted = models.Campus.objects.get(id=to_be_deleted_id)
     user_id = request.session['user_id']
     message = ""
@@ -138,27 +138,11 @@ def delete(request):
     campus_form = forms.Campus()
     campus_modify_form = forms.Campus_modify()
     campus_set = models.Campus.objects.all()
-    show_result = []
-    try: # 如果用户是老师
-        request.session.get('user_type', 'Teacher')
-        for result in campus_set: # 剔除所有结果中的非法结果
-            authority = getAuthority('query', 'Campus', 'Teacher', result.id, user_id) # 检查用户对该元素的query权限
-            if authority:
-                show_result.append(result)
-    except:
-        try: # 如果用户是学生
-            request.session.get('user_type', 'Student')
-            for result in campus_set: # 剔除所有结果中的非法结果
-                authority = getAuthority('query', 'Campus', 'Student', result.id, user_id) # 检查用户对该元素的query权限
-                if authority:
-                    show_result.append(result)
-        except:
-            message = 'Please login'
     return render(
         request,
         'manager/ManagePage/ManageCampus.html',
         {
-            'campus_set' : show_result,
+            'campus_set' : campus_set,
             'campus_form' : campus_form,
             'modify_tag' : -1,
             'message': message,
@@ -254,7 +238,7 @@ def modify(request):
     try: # 如果用户是老师
         request.session.get('user_type', 'Teacher')
         for result in campus_set: # 剔除所有结果中的非法结果
-            authority = getAuthority('query', 'Campus', 'Teacher', result.id, user_id) # 检查用户对该元素的query权限
+            authority = getAuthority('query', 'Campus', 'Student', result.id, user_id) # 检查用户对该元素的query权限
             if authority:
                 show_result.append(result)
     except:

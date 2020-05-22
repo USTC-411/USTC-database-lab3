@@ -206,7 +206,7 @@ class ValidLesson(models.Model): # 有效课程的模型定义，有效课程指
   lesson = models.OneToOneField( # 有效课程和所有的课程之间有一个一对一关系
     Lesson,
     on_delete=models.CASCADE,
-    related_name='valid_status',
+    related_name="valid_status",
     null=True,
     blank=True
   )

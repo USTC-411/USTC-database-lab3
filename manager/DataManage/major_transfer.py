@@ -280,7 +280,6 @@ def modify(request):
                     authority = getAuthority('modify', 'MajorTransfer', 'Student', tag, user_id)
                     if authority:
                         to_be_modified.change_date = major_transfer_change_date
-                        to_be_modified.student = major_transfer_student
                         to_be_modified.original_class = major_transfer_original_class
                         to_be_modified.current_class = major_transfer_current_class
                         to_be_modified.has_transfered_communist_youth_league_relationship = major_transfer_has_transfered_communist_youth_league_relationship

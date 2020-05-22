@@ -56,8 +56,8 @@
           <td>{{ major_transfer.change_id }}</td>
           <td>{{ major_transfer.change_date }}</td>
           <td>{{ major_transfer.student }}</td>
-          <td>{{ major_transfer.original_class }}</td>
-          <td>{{ major_transfer.current_class }}</td>
+          <td>{{ major_transfer.original_class.id }}</td>
+          <td>{{ major_transfer.current_class.id }}</td>
           <td>{{ major_transfer.has_transfered_communist_youth_league_relationship }}</td>
           <td>
             <a class="btn btn-danger" role="button" href="/ManageMajorTransfer/delete/?id={{major_transfer.change_id}}">

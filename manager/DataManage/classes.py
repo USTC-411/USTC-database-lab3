@@ -30,7 +30,7 @@ def classes(request):
                     show_result.append(result)
         except:
             message = 'Please login'
-            message = request.session['user_type']
+            #message = request.session['user_type']
     
     '''if request.session['user_type'] == 'Teacher':
         for result in class_set: # 剔除所有结果中的非法结果

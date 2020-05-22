@@ -7,18 +7,18 @@ from .. import forms
 from .. import models
 from manager.DataManage.authority import getAuthority
 
-def campus(request):
+def classes(request):
     modify_tag = -1
     message = ''
     show_result = []
-    campus_set = models.Campus.objects.all()
+    campus_set = models.myClass.objects.all()
     user_id = request.session['user_id']
     if request.GET.get('modify_tag'):
         modify_tag = request.GET.get('modify_tag')
     try: # 如果用户是老师
         request.session.get('user_type', 'Teacher')
         for result in campus_set: # 剔除所有结果中的非法结果
-            authority = getAuthority('query', 'Campus', 'Teacher', result.id, user_id) # 检查用户对该元素的query权限
+            authority = getAuthority('query', 'Campus', 'Student', result.id, user_id) # 检查用户对该元素的query权限
             if authority:
                 show_result.append(result)
     except:
@@ -81,7 +81,7 @@ def add(request):
     try: # 如果用户是老师
         request.session.get('user_type', 'Teacher')
         for result in campus_set: # 剔除所有结果中的非法结果
-            authority = getAuthority('query', 'Campus', 'Teacher', result.id, user_id) # 检查用户对该元素的query权限
+            authority = getAuthority('query', 'Campus', 'Student', result.id, user_id) # 检查用户对该元素的query权限
             if authority:
                 show_result.append(result)
     except:
@@ -238,7 +238,7 @@ def modify(request):
     try: # 如果用户是老师
         request.session.get('user_type', 'Teacher')
         for result in campus_set: # 剔除所有结果中的非法结果
-            authority = getAuthority('query', 'Campus', 'Teacher', result.id, user_id) # 检查用户对该元素的query权限
+            authority = getAuthority('query', 'Campus', 'Student', result.id, user_id) # 检查用户对该元素的query权限
             if authority:
                 show_result.append(result)
     except:

@@ -108,7 +108,7 @@ def add(request):
     )
 
 def delete(request):
-    to_be_deleted_id = request.GET.get('id');
+    to_be_deleted_id = request.GET.get('id')
     to_be_deleted = models.Campus.objects.get(id=to_be_deleted_id)
     user_id = request.session['user_id']
     message = ""

@@ -52,14 +52,18 @@ def add(request):
         user_id = request.session['user_id']
         # 权限控制——这一部分用于判断账号类型，因为campus只有管理员能操作，所以以下直接不允许相关操作
         if add_form.is_valid():
-            campus_id = add_form.cleaned_data.get('id')
-            campus_name = add_form.cleaned_data.get('name')
-            campus_address = add_form.cleaned_data.get('address')
+            class_id = add_form.cleaned_data.get('id')
+            class_name = add_form.cleaned_data.get('name')
+            set_up_date = add_form.cleaned_data.get('date')
+            head_teacher = add_form.cleaned_data.get('head_teacher')
+            grade = add_form.cleaned_data.get('grade')
+            major = add_form.cleaned_data.get('major')
+            
             try: # 如果用户是老师
                 request.session.get('user_type', 'Teacher')
                 authority = getAuthority('add', 'Class', 'Teacher', campus_id, user_id)
                 if authority:
-                    new_campus = models.myClass(campus_id, campus_name, campus_address)
+                    new_campus = models.myClass(class_id, class_name, set_up_date,head_teacher,grade,major)
                     new_campus.save()
                 else:
                     message = 'Do not have the right of this operation'
@@ -68,7 +72,7 @@ def add(request):
                     request.session.get('user_type', 'Student')
                     authority = getAuthority('add', 'Class', 'Student', campus_id, user_id)
                     if authority:
-                        new_campus = models.myClass(campus_id, campus_name, campus_address)
+                        new_campus = models.myClass(class_id, class_name, set_up_date,head_teacher,grade,major)
                         new_campus.save()
                     else:
                         message = 'Do not have the right of this operation'

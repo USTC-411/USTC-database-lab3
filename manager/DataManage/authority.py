@@ -130,6 +130,7 @@ def getAuthority(operation, target, identity, target_id, identity_id):
       return False
 
   elif target == 'GradeTransfer':
+    return True
     if operation == 'add':
       if identity == 'Teacher':
         student = models.Student.objects.get(student_id=target_id) # 找到对应的学生

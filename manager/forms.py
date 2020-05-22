@@ -193,10 +193,11 @@ class GradeTransfer(forms.ModelForm):
       (SUSPENSION, '休学'),
       (VOLUNTEER_TEACHING, '支教')
     )
-    fields = ('change_id', 'change_date', 'original_class', 'current_class', 'degrade_reason')
+    fields = ('change_id', 'change_date', 'student', 'original_class', 'current_class', 'degrade_reason')
     widgets = {
       'change_id': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
       'change_date': forms.DateInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'student': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
       'original_class': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
       'current_class': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
       'degrade_reason': forms.Select(choices=DEGRADE_REASON, attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),

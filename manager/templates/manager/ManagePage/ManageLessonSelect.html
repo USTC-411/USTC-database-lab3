@@ -20,14 +20,15 @@
       <div class="alert alert-warning">{{ message }}</div>
     {% endif %}
     <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-      <a class="navbar-brand nav-title">Campus Management</a>
-      <form class="form-inline search-form query-form" action="/ManageCampus/query/" method="GET">
+      <a class="navbar-brand nav-title">LessonSelect Management</a>
+      <form class="form-inline search-form query-form" action="/ManageLessonSelect/query/" method="GET">
         <div class="col-md-3 search-filter">
           <select class="custom-select" required name="option">
             <option selected disabled value="">Choose filter</option>
-            <option>id</option>
-            <option>name</option>
-            <option>address</option>
+            <option>lesson_id</option>
+            <option>begin_date</option>
+            <option>begin_semester</option>
+            <option>score</option>
           </select>
         </div>
         <input class="form-control mr-sm-1" type="search" placeholder="type in constrains" aria-label="Search" name="query_val">
@@ -39,24 +40,26 @@
     <table class="table table-secondary">
       <thead>
         <tr>
-          <th scope="col">Campus id</th>
-          <th scope="col">Campus name</th>
-          <th scope="col">Campus address</th>
+          <th scope="col">lesson_id</th>
+          <th scope="col">begin_date</th>
+          <th scope="col">begin_semester</th>
+          <th scope="col">score</th>
         </tr>
       </thead>
       <tbody>
-        {% for campus in campus_set %}
+        {% for [a, valid_lesson_id, begin_date, begin_semester, score, b] in validlesson_set %}
         <tr>
-          <td>{{ campus.id }}</td>
-          <td>{{ campus.name }}</td>
-          <td>{{ campus.address }}</td>
+          <td>{{ valid_lesson_id }}</td>
+          <td>{{ begin_date }}</td>
+          <td>{{ begin_semester }}</td>
+          <td>{{ score }}</td>
           <td>
-            <a class="btn btn-danger" role="button" href="/ManageCampus/delete/?id={{campus.id}}">
+            <a class="btn btn-danger" role="button" href="/ManageLessonSelect/delete/?id={{valid_lesson_id}}">
               Delete
             </a>
           </td>
           <td>
-            <a class="btn btn-warning" role="button" href="/ManageCampus/?modify_tag={{campus.id}}">
+            <a class="btn btn-warning" role="button" href="/ManageLessonSelect/?modify_tag={{valid_lesson_id}}">
               Modify
             </a>
           </td>
@@ -65,39 +68,31 @@
       </tbody>
     </table>
 
-    <form class="add-form bg-light" id="add-form" action="/ManageCampus/add/" method="POST">
+    <form class="add-form bg-light" id="add-form" action="/ManageLessonSelect/add/" method="POST">
       {% csrf_token %}
       <div class="form-group row m-4">
-        <label for="colFormLabelSm" class="col-sm-2 col-form-label">Campus id</label>
-        {{ campus_form.id }}
+        <label for="colFormLabelSm" class="col-sm-2 col-form-label">lesson id</label>
+        {{ lesson_select_form.valid_lesson }}
       </div>
       <div class="form-group row m-4">
-        <label for="colFormLabel" class="col-sm-2 col-form-label">Campus name</label>
-        {{ campus_form.name }}
-      </div>
-      <div class="form-group row m-4">
-        <label for="colFormLabelLg" class="col-sm-2 col-form-label">Campus address</label>
-        {{ campus_form.address }}
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">score</label>
+        {{ lesson_select_form.score }}
       </div>
       <div class="btn-group m-6 form-button" role="group" aria-label="Basic example">
         <button type="submit" class="btn btn-primary">Add</button>
-        <button class="btn btn-danger add-close-btn" id="add-close-btn" onclick="CloseForm()">Close</button>
+        <button type="button" class="btn btn-danger add-close-btn" id="add-close-btn" onclick="CloseForm()">Close</button>
       </div>
     </form>
     {% if modify_tag != -1 %}
-      <form class="modify-form bg-light" id="modify-form" action="/ManageCampus/modify/?tag={{modify_tag}}" method="POST">
+      <form class="modify-form bg-light" id="modify-form" action="/ManageLessonSelect/modify/?tag={{modify_tag}}" method="POST">
         {% csrf_token %}
         <div class="form-group row m-4">
-          <label for="colFormLabel" class="col-sm-2 col-form-label">Campus name</label>
-          {{ campus_modify_form.name }}
-        </div>
-        <div class="form-group row m-4">
-          <label for="colFormLabelLg" class="col-sm-2 col-form-label">Campus address</label>
-          {{ campus_modify_form.address }}
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label">score</label>
+          {{ lesson_select_modify_form.score }}
         </div>
         <div class="btn-group m-6 form-button" role="group" aria-label="Basic example">
           <button type="submit" class="btn btn-primary">Modify</button>
-          <button class="btn btn-danger modify-close-btn" id="modify-close-btn" onclick="CloseModification()">Close</button>
+          <button type="button" class="btn btn-danger modify-close-btn" id="modify-close-btn" onclick="CloseModification()">Close</button>
         </div>
       </form>
     {% endif %}

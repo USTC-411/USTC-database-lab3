@@ -19,8 +19,8 @@
     <nav class="navbar navbar-dark bg-dark top-bar">
       <a class="navbar-brand logo">USTC</a>
       <a class="navbar-brand nav-title">College Management System</a>
-      <form class="form-inline search-form">
-        <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
+      <form class="form-inline search-form" action="/search/global_search/">
+        <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search" name="global_info">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
       <a class="btn btn-primary my-2 my-sm-0" type="submit" role="button" href="/search/">Advanced Search</a>
@@ -41,7 +41,7 @@
           Major
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Query</a>
+          <a class="dropdown-item" href="/ManageMajor/" target="subpage">Query</a>
         </div>
       </div>
 
@@ -50,7 +50,7 @@
           Class
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Query</a>
+          <a class="dropdown-item" href="/ManageClass/" target="subpage">Query</a>
         </div>
       </div>
 
@@ -70,20 +70,30 @@
           Students
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Add</a>
-          <a class="dropdown-item" href="#">Delete</a>
-          <a class="dropdown-item" href="#">Query</a>
-          <a class="dropdown-item" href="#">Modify</a>
+          <a class="dropdown-item" href="/ManageStudent/" target="subpage">Add</a>
+          <a class="dropdown-item" href="/ManageStudent/" target="subpage">Delete</a>
+          <a class="dropdown-item" href="/ManageStudent/" target="subpage">Query</a>
+          <a class="dropdown-item" href="/ManageStudent/" target="subpage">Modify</a>
         </div>
       </div>
 
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle btn-lg mr-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Students' Status
+          MajorTransfer
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Add</a>
-          <a class="dropdown-item" href="#">Query</a>
+          <a class="dropdown-item" href="/ManageMajorTransfer/" target="subpage">Add</a>
+          <a class="dropdown-item" href="/ManageMajorTransfer/" target="subpage">Query</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle btn-lg mr-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          GradeTransfer
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="/ManageGradeTransfer/" target="subpage">Add</a>
+          <a class="dropdown-item" href="/ManageGradeTransfer/" target="subpage">Query</a>
         </div>
       </div>
 
@@ -92,8 +102,8 @@
           Lessons
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Add</a>
-          <a class="dropdown-item" href="#">Query</a>
+          <a class="dropdown-item" href="/ManageLesson/" target="subpage">Add</a>
+          <a class="dropdown-item" href="/ManageLesson/" target="subpage">Query</a>
         </div>
       </div>
 
@@ -102,10 +112,10 @@
           Teaching Courses
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Start a course</a>
-          <a class="dropdown-item" href="#">Delete a teaching course</a>
-          <a class="dropdown-item" href="#">Query teaching courses</a>
-          <a class="dropdown-item" href="#">Modify teaching lessons</a>
+          <a class="dropdown-item" href="/ManageCourse/" target="subpage">Start a course</a>
+          <a class="dropdown-item" href="/ManageCourse/" target="subpage">Delete a teaching course</a>
+          <a class="dropdown-item" href="/ManageCourse/" target="subpage">Query teaching courses</a>
+          <a class="dropdown-item" href="/ManageCourse/" target="subpage">Modify teaching lessons</a>
         </div>
       </div>
     </div>

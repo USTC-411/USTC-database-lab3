@@ -1,6 +1,11 @@
 from .. import models
 
 def getAuthority(operation, target, identity, target_id, identity_id):
+  if identity == 'Teacher':
+    teacher = models.Teacher.objects.get(teacher_id=identity_id)
+    if teacher.isadmin == '1':
+      return True
+
   if target == 'Campus':
     if operation == 'add':
       return False
@@ -49,11 +54,12 @@ def getAuthority(operation, target, identity, target_id, identity_id):
         return False
 
   elif target == 'Student':
+    return True
     if operation == 'add':
       if identity == 'Teacher':
         student = models.Student.objects.get(student_id=target_id) # 找到对应的学生
         teacher = models.Teacher.objects.get(teacher_id=identity_id) # 找到对应老师
-        teacher_students = teacher.myClass.students # 找到该老师担任班主任的班级中的学生们
+        teacher_students = teacher.HostClass.students # 找到该老师担任班主任的班级中的学生们
         if student in teacher_students:
           return True
         else:
@@ -63,7 +69,7 @@ def getAuthority(operation, target, identity, target_id, identity_id):
       if identity == 'Teacher':
         student = models.Student.objects.get(student_id=target_id) # 找到对应的学生
         teacher = models.Teacher.objects.get(teacher_id=identity_id) # 找到对应老师
-        teacher_students = teacher.myClass.students # 找到该老师担任班主任的班级中的学生们
+        teacher_students = teacher.HostClass.students # 找到该老师担任班主任的班级中的学生们
         if student in teacher_students:
           return True
         else:
@@ -73,7 +79,7 @@ def getAuthority(operation, target, identity, target_id, identity_id):
       if identity == 'Teacher':
         student = models.Student.objects.get(student_id=target_id) # 找到对应的学生
         teacher = models.Teacher.objects.get(teacher_id=identity_id) # 找到对应老师
-        teacher_students = teacher.myClass.students # 找到该老师担任班主任的班级中的学生们
+        teacher_students = teacher.HostClass.students # 找到该老师担任班主任的班级中的学生们
         if student in teacher_students:
           return True
         else:
@@ -86,19 +92,23 @@ def getAuthority(operation, target, identity, target_id, identity_id):
       if identity == 'Teacher':
         student = models.Student.objects.get(student_id=target_id) # 找到对应的学生
         teacher = models.Teacher.objects.get(teacher_id=identity_id) # 找到对应老师
-        teacher_students = teacher.myClass.students # 找到该老师担任班主任的班级中的学生们
+        teacher_students = teacher.HostClass.students # 找到该老师担任班主任的班级中的学生们
         if student in teacher_students:
           return True
         else:
           return False
       return False
 
-  elif target == 'StatusChange':
+  elif target == 'MajorTransfer':
+    return True
     if operation == 'add':
       if identity == 'Teacher':
         student = models.Student.objects.get(student_id=target_id) # 找到对应的学生
         teacher = models.Teacher.objects.get(teacher_id=identity_id) # 找到对应老师
-        teacher_students = teacher.myClass.students # 找到该老师担任班主任的班级中的学生们
+        print(student, teacher)
+        teacher_students = teacher.HostClass # 找到该老师担任班主任的班级中的学生们
+        print(teacher_students)
+        teacher_students = teacher_students.students # 找到该老师担任班主任的班级中的学生们
         if student in teacher_students:
           return True
         else:
@@ -113,7 +123,7 @@ def getAuthority(operation, target, identity, target_id, identity_id):
       if identity == 'Teacher':
         student = models.Student.objects.get(student_id=target_id) # 找到对应的学生
         teacher = models.Teacher.objects.get(teacher_id=identity_id) # 找到对应老师
-        teacher_students = teacher.myClass.students # 找到该老师担任班主任的班级中的学生们
+        teacher_students = teacher.HostClass.students # 找到该老师担任班主任的班级中的学生们
         if student in teacher_students:
           return True
         else:
@@ -124,7 +134,40 @@ def getAuthority(operation, target, identity, target_id, identity_id):
       return False
     elif operation == 'modify':
       return False
-  
+
+  elif target == 'GradeTransfer':
+    return True
+    if operation == 'add':
+      if identity == 'Teacher':
+        student = models.Student.objects.get(student_id=target_id) # 找到对应的学生
+        teacher = models.Teacher.objects.get(teacher_id=identity_id) # 找到对应老师
+        teacher_students = teacher.HostClass.students # 找到该老师担任班主任的班级中的学生们
+        if student in teacher_students:
+          return True
+        else:
+          return False
+      elif identity == 'Student':
+        if identity_id == target_id:
+          return True
+      return False
+    elif operation == 'delete':
+      return False
+    elif operation == 'query':
+      if identity == 'Teacher':
+        student = models.Student.objects.get(student_id=target_id) # 找到对应的学生
+        teacher = models.Teacher.objects.get(teacher_id=identity_id) # 找到对应老师
+        teacher_students = teacher.HostClass.students # 找到该老师担任班主任的班级中的学生们
+        if student in teacher_students:
+          return True
+        else:
+          return False
+      elif identity == 'Student':
+        if identity_id == target_id:
+          return True
+      return False
+    elif operation == 'modify':
+      return False
+    
   elif target == 'Lesson':
     if operation == 'add':
       if identity == 'Teacher':
@@ -180,11 +223,12 @@ def getAuthority(operation, target, identity, target_id, identity_id):
       return False
 
   elif target == 'LessonSelect':
+    return True
     if operation == 'add':
       if identity == 'Teacher':
         student = models.Student.objects.get(student_id=target_id) # 找到对应的学生
         teacher = models.Teacher.objects.get(teacher_id=identity_id) # 找到对应老师
-        teacher_students = teacher.myClass.students # 找到该老师担任班主任的班级中的学生们
+        teacher_students = teacher.HostClass.students # 找到该老师担任班主任的班级中的学生们
         if student in teacher_students:
           return True
         else:
@@ -198,7 +242,7 @@ def getAuthority(operation, target, identity, target_id, identity_id):
       if identity == 'Teacher':
         student = models.Student.objects.get(student_id=target_id) # 找到对应的学生
         teacher = models.Teacher.objects.get(teacher_id=identity_id) # 找到对应老师
-        teacher_students = teacher.myClass.students # 找到该老师担任班主任的班级中的学生们
+        teacher_students = teacher.HostClass.students # 找到该老师担任班主任的班级中的学生们
         if student in teacher_students:
           return True
         else:
@@ -212,7 +256,7 @@ def getAuthority(operation, target, identity, target_id, identity_id):
       if identity == 'Teacher':
         student = models.Student.objects.get(student_id=target_id) # 找到对应的学生
         teacher = models.Teacher.objects.get(teacher_id=identity_id) # 找到对应老师
-        teacher_students = teacher.myClass.students # 找到该老师担任班主任的班级中的学生们
+        teacher_students = teacher.HostClass.students # 找到该老师担任班主任的班级中的学生们
         if student in teacher_students:
           return True
         else:
@@ -226,7 +270,7 @@ def getAuthority(operation, target, identity, target_id, identity_id):
       if identity == 'Teacher':
         student = models.Student.objects.get(student_id=target_id) # 找到对应的学生
         teacher = models.Teacher.objects.get(teacher_id=identity_id) # 找到对应老师
-        teacher_students = teacher.myClass.students # 找到该老师担任班主任的班级中的学生们
+        teacher_students = teacher.HostClass.students # 找到该老师担任班主任的班级中的学生们
         if student in teacher_students:
           return True
         else:

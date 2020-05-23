@@ -27,7 +27,7 @@ class myClass(models.Model): # 班级的模型定义，因为与关键字冲突�
   date = models.DateField()
   head_teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE, related_name='HostClass')
   grade = models.DateField()
-  major = models.ForeignKey('Major', on_delete=models.CASCADE) # 有一个外键，默认指向专业的主键，也就是id
+  major = models.ForeignKey('Major', on_delete=models.CASCADE,related_name='myClass') # 有一个外键，默认指向专业的主键，也就是id
   def __str__(self):
     return self.name
 
@@ -71,10 +71,15 @@ class Teacher(Person): # 老师模型的定义，继承Person类
     (ASSOCIATE_PROFESSOR, '副教授')
   )
   # Fields for model
+  ISADMIN_TYPE = (
+    ('1','1'),
+    ('0','0')
+  )
   teacher_id = models.CharField(max_length=30, unique=True)
   password = models.CharField(max_length=256, default="123456")
-  major = models.ForeignKey('Major', on_delete=models.CASCADE) # 有一个外键，默认指向专业的主键，也就是id
+  major = models.ForeignKey('Major', on_delete=models.CASCADE, related_name='Teacher') # 有一个外键，默认指向专业的主键，也就是id
   title = models.CharField(max_length=30, choices=TITLE_TYPE)
+  isadmin = models.CharField(max_length=2,choices=ISADMIN_TYPE,default='0')
   def __str__(self):
     return self.name
 
@@ -86,7 +91,7 @@ class Student(Person): # 学生模型的定义，继承Person类
     return self.name
 
 class StatusChange(models.Model): # 学籍异动的模型定义，作为一个抽象类，子类为之后定义的转专业和降级
-  chenge_id = models.CharField(max_length=30, primary_key=True)
+  change_id = models.CharField(max_length=30, primary_key=True)
   change_date = models.DateField()
   class Meta:
     abstract = True
@@ -97,6 +102,7 @@ class MajorTransfer(StatusChange): # 转专业的模型定义，继承自学籍�
     on_delete = models.CASCADE,
     related_name = 'major_transfer'
   )
+  major = models.ForeignKey('Major', on_delete=models.CASCADE, related_name="major_transfer", default="1")
   # 有一个外键，默认指向班级的主键，可以在班级中通过major_original_class属性来访问这一条转专业记录
   original_class = models.ForeignKey('myClass', on_delete=models.CASCADE, related_name="major_original_class")
   # 有一个外键，默认指向班级的主键，可以在班级中通过major_current_class属性来访问
@@ -141,7 +147,7 @@ class Lesson(models.Model): # 课程模型的定义
   # Fields of this model
   id = models.CharField(max_length=30, primary_key=True)
   name = models.CharField(max_length=30, unique=True)
-  major = models.ForeignKey('Major', on_delete=models.CASCADE) # 有一个外键，默认指向专业的主键，也就是id
+  major = models.ForeignKey('Major', on_delete=models.CASCADE,related_name="Lesson") # 有一个外键，默认指向专业的主键，也就是id
   test_type = models.CharField(max_length=30, choices=TEST_TYPE, default=TEST)
   lesson_status = models.CharField(max_length=30, choices=LESSON_STATUS, default=INVALID)
 
@@ -205,7 +211,7 @@ class ValidLesson(models.Model): # 有效课程的模型定义，有效课程指
   lesson = models.OneToOneField( # 有效课程和所有的课程之间有一个一对一关系
     Lesson,
     on_delete=models.CASCADE,
-    related_name='valid_status',
+    related_name="valid_status",
     null=True,
     blank=True
   )
@@ -218,7 +224,7 @@ class ValidLesson(models.Model): # 有效课程的模型定义，有效课程指
 
 class LessonSelect(models.Model):
   # 这是选课表，是学生和有效课程的多对多关系中的中间表，某些参数通过关系来访问
-  valid_lesson = models.ForeignKey(ValidLesson, on_delete=models.CASCADE)
-  student = models.ForeignKey(Student, on_delete=models.CASCADE)
-  score = models.IntegerField(validators=[MaxValueValidator(100), MinValueValidator(0)])
+  valid_lesson = models.ForeignKey(ValidLesson, on_delete=models.CASCADE, related_name="BeSelected")
+  student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="SelectLesson")
+  score = models.IntegerField(validators=[MaxValueValidator(100), MinValueValidator(0)], null=True, blank=True)
 

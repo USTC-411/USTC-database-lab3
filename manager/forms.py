@@ -522,3 +522,15 @@ class ValidLesson_modify(forms.ModelForm):
       'begin_semester': forms.Select(choices=SEMESTER,attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson id",'autofocus': ''}),
       'begin_time': forms.Select(choices=WEEK_TIME,attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson id",'autofocus': ''}),
     }
+
+class LessonSelect(forms.ModelForm):
+  score = forms.IntegerField(min_value=0,max_value=100,)
+  class Meta:
+    model = models.LessonSelect
+    fields = ('valid_lesson', 'score')
+    widgets = {
+      'valid_lesson': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson id",'autofocus': ''}),
+    }
+
+class LessonSelect_modify(forms.Form):
+  score = forms.IntegerField(min_value=0,max_value=100,)

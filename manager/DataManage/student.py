@@ -87,6 +87,7 @@ def add(request):
                         password = student_password,
                         myClass = student_myClass,
                     )
+                    print(new_student.myClass)
                 else:
                     message = 'Do not have the right of this operation'
             except:

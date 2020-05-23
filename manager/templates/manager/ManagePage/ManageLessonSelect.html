@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -24,11 +25,10 @@
         <div class="col-md-3 search-filter">
           <select class="custom-select" required name="option">
             <option selected disabled value="">Choose filter</option>
-            <option>valid_lesson</option>
-            <option>student</option>
-            <option>score</option>
+            <option>lesson_id</option>
             <option>begin_date</option>
             <option>begin_semester</option>
+            <option>score</option>
           </select>
         </div>
         <input class="form-control mr-sm-1" type="search" placeholder="type in constrains" aria-label="Search" name="query_val">
@@ -40,29 +40,26 @@
     <table class="table table-secondary">
       <thead>
         <tr>
-          <th scope="col">LessonSelect valid_lesson</th>
-          <th scope="col">LessonSelect student</th>
-          <th scope="col">LessonSelect score</th>
-          <th scope="col">LessonSelect begin_date</th>
-          <th scope="col">LessonSelect begin_semester</th>
+          <th scope="col">lesson_id</th>
+          <th scope="col">begin_date</th>
+          <th scope="col">begin_semester</th>
+          <th scope="col">score</th>
         </tr>
       </thead>
       <tbody>
-        {% for lesson_select in lesson_select_set %}
+        {% for [a, valid_lesson_id, begin_date, begin_semester, score, b] in validlesson_set %}
         <tr>
-          <td>{{ lesson_select.change_id }}</td>
-          <td>{{ lesson_select.change_date }}</td>
-          <td>{{ lesson_select.student.student_id }}</td>
-          <td>{{ lesson_select.original_class.id }}</td>
-          <td>{{ lesson_select.current_class.id }}</td>
-          <td>{{ lesson_select.degrade_reason }}</td>
+          <td>{{ valid_lesson_id }}</td>
+          <td>{{ begin_date }}</td>
+          <td>{{ begin_semester }}</td>
+          <td>{{ score }}</td>
           <td>
-            <a class="btn btn-danger" role="button" href="/ManageLessonSelect/delete/?id={{lesson_select.change_id}}">
+            <a class="btn btn-danger" role="button" href="/ManageLessonSelect/delete/?id={{valid_lesson_id}}">
               Delete
             </a>
           </td>
           <td>
-            <a class="btn btn-warning" role="button" href="/ManageLessonSelect/?modify_tag={{lesson_select.change_id}}">
+            <a class="btn btn-warning" role="button" href="/ManageLessonSelect/?modify_tag={{valid_lesson_id}}">
               Modify
             </a>
           </td>
@@ -74,56 +71,28 @@
     <form class="add-form bg-light" id="add-form" action="/ManageLessonSelect/add/" method="POST">
       {% csrf_token %}
       <div class="form-group row m-4">
-        <label for="colFormLabelSm" class="col-sm-2 col-form-label">change_id</label>
-        {{ lesson_select_form.change_id }}
+        <label for="colFormLabelSm" class="col-sm-2 col-form-label">lesson id</label>
+        {{ lesson_select_form.valid_lesson }}
       </div>
       <div class="form-group row m-4">
-        <label for="colFormLabel" class="col-sm-2 col-form-label">change_date</label>
-        {{ lesson_select_form.change_date }}
-      </div>
-      <div class="form-group row m-4">
-        <label for="colFormLabelLg" class="col-sm-2 col-form-label">student</label>
-        {{ lesson_select_form.student }}
-      </div>
-      <div class="form-group row m-4">
-        <label for="colFormLabelLg" class="col-sm-2 col-form-label">original_class</label>
-        {{ lesson_select_form.original_class }}
-      </div>
-      <div class="form-group row m-4">
-        <label for="colFormLabelLg" class="col-sm-2 col-form-label">current_class</label>
-        {{ lesson_select_form.current_class }}
-      </div>
-      <div class="form-group row m-4">
-        <label for="colFormLabelLg" class="col-sm-2 col-form-label">degrade_reason</label>
-        {{ lesson_select_form.degrade_reason }}
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">score</label>
+        {{ lesson_select_form.score }}
       </div>
       <div class="btn-group m-6 form-button" role="group" aria-label="Basic example">
         <button type="submit" class="btn btn-primary">Add</button>
-        <button class="btn btn-danger add-close-btn" id="add-close-btn" onclick="CloseForm()">Close</button>
+        <button type="button" class="btn btn-danger add-close-btn" id="add-close-btn" onclick="CloseForm()">Close</button>
       </div>
     </form>
     {% if modify_tag != -1 %}
       <form class="modify-form bg-light" id="modify-form" action="/ManageLessonSelect/modify/?tag={{modify_tag}}" method="POST">
         {% csrf_token %}
         <div class="form-group row m-4">
-          <label for="colFormLabel" class="col-sm-2 col-form-label">change_date</label>
-          {{ lesson_select_modify_form.change_date }}
-        </div>
-        <div class="form-group row m-4">
-          <label for="colFormLabelLg" class="col-sm-2 col-form-label">original_class</label>
-          {{ lesson_select_modify_form.original_class }}
-        </div>
-        <div class="form-group row m-4">
-          <label for="colFormLabelLg" class="col-sm-2 col-form-label">current_class</label>
-          {{ lesson_select_modify_form.current_class }}
-        </div>
-        <div class="form-group row m-4">
-          <label for="colFormLabelLg" class="col-sm-2 col-form-label">degrade_reason</label>
-          {{ lesson_select_modify_form.degrade_reason }}
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label">score</label>
+          {{ lesson_select_modify_form.score }}
         </div>
         <div class="btn-group m-6 form-button" role="group" aria-label="Basic example">
           <button type="submit" class="btn btn-primary">Modify</button>
-          <button class="btn btn-danger modify-close-btn" id="modify-close-btn" onclick="CloseModification()">Close</button>
+          <button type="button" class="btn btn-danger modify-close-btn" id="modify-close-btn" onclick="CloseModification()">Close</button>
         </div>
       </form>
     {% endif %}

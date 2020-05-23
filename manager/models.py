@@ -221,5 +221,5 @@ class LessonSelect(models.Model):
   # 这是选课表，是学生和有效课程的多对多关系中的中间表，某些参数通过关系来访问
   valid_lesson = models.ForeignKey(ValidLesson, on_delete=models.CASCADE, related_name="BeSelected")
   student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="SelectLesson")
-  score = models.IntegerField(validators=[MaxValueValidator(100), MinValueValidator(0)])
+  score = models.IntegerField(validators=[MaxValueValidator(100), MinValueValidator(0)], null=True, blank=True)
 

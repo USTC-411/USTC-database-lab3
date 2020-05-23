@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from manager.DataManage import campus,major,teacher,major_transfer,lesson,grade_transfer,student,lesson_select
+from manager.DataManage import campus,major,teacher,major_transfer,lesson,grade_transfer,student,lesson_select,course
 from manager import views,search
 
 urlpatterns = [
@@ -72,5 +72,10 @@ urlpatterns = [
     path('ManageLessonSelect/delete/', lesson_select.delete),
     path('ManageLessonSelect/query/', lesson_select.query),
     path('ManageLessonSelect/modify/', lesson_select.modify),
+    path('ManageCourse/', course.course),
+    path('ManageCourse/add/', course.add),
+    path('ManageCourse/delete/', course.delete),
+    path('ManageCourse/query/', course.query),
+    path('ManageCourse/modify/', course.modify),
 ]
 

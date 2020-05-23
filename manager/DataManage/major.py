@@ -55,11 +55,13 @@ def add(request):
             major_address = add_form.cleaned_data.get('address')
             major_principal = add_form.cleaned_data.get('address')
             major_campus = add_form.cleaned_data.get('campus')
+            print(major_campus)
             try: # 如果用户是老师
                 request.session.get('user_type', 'Teacher')
                 authority = getAuthority('add', 'Major', 'Teacher', major_id, user_id)
                 if authority:
                     major_campus_in = models.Campus.objects.get(name = major_campus)
+                    print(major_campus_in)
                     new_major = models.Major(major_id, major_name, major_address, major_principal, campus=major_campus_in)
                     new_major.save()
                 else:

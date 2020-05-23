@@ -26,7 +26,7 @@ class Campus_modify(forms.ModelForm):
 class myClass(forms.ModelForm): 
   class Meta:
     model = models.myClass
-    fields = ('id', 'name', 'date', 'head_teacher', 'grade', 'major' )
+    fields = ('id', 'name', 'date', 'head_teacher', 'grade', 'major', )
     widgets = {
       'id': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'placeholder': "Class id",'autofocus': ''}),
       'name': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'placeholder': "Class name",'autofocus': ''}),
@@ -39,7 +39,7 @@ class myClass(forms.ModelForm):
 class myClass_modify(forms.ModelForm):
   class Meta:
     model = models.myClass
-    fields = ('name', 'date', 'head_teacher', 'grade', 'major' )
+    fields = ('name', 'date', 'head_teacher', 'grade', 'major', )
     widgets = {
       'name': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'placeholder': "Class name",'autofocus': ''}),
       'date': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'placeholder': "Set up date",'autofocus': ''}),

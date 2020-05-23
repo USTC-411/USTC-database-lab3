@@ -60,28 +60,29 @@ def add(request):
             head_teacher = add_form.cleaned_data.get('head_teacher')
             grade = add_form.cleaned_data.get('grade')
             class_major = add_form.cleaned_data.get('major')
-            print(class_major)
-            #try: # 如果用户是老师
-            request.session.get('user_type', 'Teacher')
-            authority = getAuthority('add', 'Class', 'Teacher', class_id, user_id)
-            if authority:
-                class_major_in = models.Major.objects.get(name = class_major)
-                class_teacher_in = models.Teacher.objects.get(name = head_teacher)
-                new_class = models.myClass(class_id, class_name, set_up_date,head_teacher=class_teacher_in,grade=grade,major=class_major_in)
-                new_class.save()
-            else:
-                message = 'Do not have the right of this operation'
-            '''except:
+            try: # 如果用户是老师
+                request.session.get('user_type', 'Teacher')
+                authority = getAuthority('add', 'Class', 'Teacher', class_id, user_id)
+                if authority:
+                    class_major_in = models.Major.objects.get(name = class_major)
+                    class_teacher = models.Teacher.objects.get(name = head_teacher)
+                    new_class = models.myClass(class_id, class_name, set_up_date, head_teacher=class_teacher, grade=grade, major=class_major_in)
+                    new_class.save()
+                else:
+                    message = 'Do not have the right of this operation'
+            except:
                 try: # 如果用户是学生
-                    request.session.get('user_type', 'Student')
-                    authority = getAuthority('add', 'Class', 'Student', campus_id, user_id)
+                    request.session.get('user_type', 'Teacher')
+                    authority = getAuthority('add', 'Class', 'Teacher', class_id, user_id)
                     if authority:
-                        new_campus = models.myClass(class_id, class_name, set_up_date,head_teacher,grade,major)
-                        new_campus.save()
+                        class_major_in = models.Major.objects.get(name = class_major)
+                        class_teacher = models.Teacher.objects.get(name = head_teacher)
+                        new_class = models.myClass(class_id, class_name, set_up_date, head_teacher=class_teacher, grade=grade, major=class_major_in)
+                        new_class.save()
                     else:
                         message = 'Do not have the right of this operation'
                 except:
-                    message = 'Please login' '''
+                    message = 'Please login' 
         else:
             message = "Please check what you've entered"
     # 渲染动态页面
@@ -176,120 +177,7 @@ def delete(request):
     )
 
 
-'''def delete(request):
-    to_be_deleted_id = request.GET.get('id')
-    to_be_deleted = models.Major.objects.get(id=to_be_deleted_id)
-    user_id = request.session['user_id']
-    message = ""
-    try: # 如果用户是teacher
-        request.session.get('user_type', 'Teacher')
-        authority = getAuthority('delete', 'Major', 'Teacher', to_be_deleted_id, user_id)
-        if authority:
-            if to_be_deleted.Lesson.count() == 0 and to_be_deleted.Teacher.count() == 0 and to_be_deleted.myClass.count() == 0:
-                to_be_deleted.delete()
-            else:
-                message = "You cannot delete it, because it's referenced by others"
-        else:
-            message = 'Do not have the right of this operation'
-    except:
-        try: # 如果用户是student
-            request.session.get('user_type', 'Student')
-            authority = getAuthority('delete', 'Major', 'Student', to_be_deleted_id, user_id)
-            if authority:
-                if to_be_deleted.Lesson.count() == 0 and to_be_deleted.Teacher.count() == 0 and to_be_deleted.myClass.count() == 0:
-                    to_be_deleted.delete()
-                else:
-                    message = "You cannot delete it, because it's referenced by others"
-            else:
-                message = 'Do not have the right of this operation'
-        except:
-            message = 'Please login'
-    major_form = forms.Major()
-    major_modify_form = forms.Major_modify()
-    major_set = models.Major.objects.all()
-    show_result = []
-    try: # 如果用户是老师
-        request.session.get('user_type', 'Teacher')
-        for result in major_set: # 剔除所有结果中的非法结果
-            authority = getAuthority('query', 'Major', 'Teacher', result.id, user_id) # 检查用户对该元素的query权限
-            if authority:
-                show_result.append(result)
-    except:
-        try: # 如果用户是学生
-            request.session.get('user_type', 'Student')
-            for result in major_set: # 剔除所有结果中的非法结果
-                authority = getAuthority('query', 'Major', 'Student', result.id, user_id) # 检查用户对该元素的query权限
-                if authority:
-                    show_result.append(result)
-        except:
-            message = 'Please login'
-    return render(
-        request,
-        'manager/ManagePage/ManageMajor.html',
-        {
-            'major_set' : show_result,
-            'major_form' : major_form,
-            'modify_tag' : -1,
-            'message': message,
-            'major_modify_form' : major_modify_form,
-        }
-    )'''
 
-'''def query(request):
-    show_result = [] # 这是最终展示给用户的搜索结果
-    if  request.method == "GET":
-        option = request.GET.get('option')
-        query_val = request.GET.get('query_val')
-        query_result = []
-        user_id = request.session['user_id']
-        try: # 如果用户是teacher
-            request.session.get('user_type', 'Teacher')
-            if option == 'id': # 搜索所有结果，其中会有非法结果
-                query_result = models.Major.objects.filter(id=query_val)
-            elif option == 'name':
-                query_result = models.Major.objects.filter(name=query_val)
-            elif option == 'address':
-                query_result = models.Major.objects.filter(address=query_val)
-            elif option == 'principal':
-                query_result = models.Major.objects.filter(principal=query_val)
-            elif option == 'campus':
-                query_result = models.Major.objects.filter(campus=query_val)
-            for result in query_result: # 剔除所有结果中的非法结果
-                authority = getAuthority('query', 'Major', 'Teacher', result.id, user_id) # 检查用户对该元素的query权限
-                if authority:
-                    show_result.append(result)
-        except:
-            try: # 如果用户是student
-                request.session.get('user_type', 'Student')
-                if option == 'id': # 搜索所有结果，其中会有非法结果
-                    query_result = models.Major.objects.filter(id=query_val)
-                elif option == 'name':
-                    query_result = models.Major.objects.filter(name=query_val)
-                elif option == 'address':
-                    query_result = models.Major.objects.filter(address=query_val)
-                elif option == 'principal':
-                    query_result = models.Major.objects.filter(principal=query_val)
-                elif option == 'campus':
-                    query_result = models.Major.objects.filter(campus=query_val)
-                for result in query_result: # 剔除所有结果中的非法结果
-                    authority = getAuthority('query', 'Major', 'Student', result.id, user_id) # 检查用户对该元素的query权限
-                    if authority:
-                        show_result.append(result)
-            except:
-                message = 'Please login'
-        # 返回结果给页面
-        major_form = forms.Major()
-        major_modify_form = forms.Major_modify()
-        return render(
-            request,
-            'manager/ManagePage/ManageMajor.html',
-            {
-                'major_set' : show_result,
-                'major_form' : major_form,
-                'modify_tag' : -1,
-                'major_modify_form' : major_modify_form,
-            }
-        )'''
 def query(request):
     show_result = [] # 这是最终展示给用户的搜索结果
     if  request.method == "GET":
@@ -356,11 +244,13 @@ def modify(request):
         modify_form = forms.myClass_modify(request.POST)
         message = ''
         user_id = request.session['user_id']
+        print(modify_form.errors)
         if modify_form.is_valid():
             class_name = modify_form.cleaned_data.get('name')
             class_date = modify_form.cleaned_data.get('date')
             head_teacher = modify_form.cleaned_data.get('head_teacher')
             class_grade = modify_form.cleaned_data.get('grade')
+            class_major = modify_form.cleaned_data.get('major')
             tag = request.GET.get('tag')
             to_be_modified = models.myClass.objects.get(id=tag)
             try: # 如果用户是老师
@@ -371,18 +261,20 @@ def modify(request):
                     to_be_modified.date = class_date
                     to_be_modified.head_teacher = head_teacher
                     to_be_modified.grade = class_grade
+                    to_be_modified.major = class_major
                     to_be_modified.save()
                 else:
                     message = 'Do not have the right of this operation'
             except: 
                 try: # 如果用户是学生
                     request.session.get('user_type', 'Student')
-                    authority = getAuthority('modify', 'Class', 'Student', tag, user_id)
+                    authority = getAuthority('modify', 'Class', 'Teacher', tag, user_id)
                     if authority:
                         to_be_modified.name = class_name
                         to_be_modified.date = class_date
                         to_be_modified.head_teacher = head_teacher
                         to_be_modified.grade = class_grade
+                        to_be_modified.major = class_major
                         to_be_modified.save()
                     else:
                         message = 'Do not have the right of this operation'

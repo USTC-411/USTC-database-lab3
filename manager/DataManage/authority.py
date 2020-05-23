@@ -1,6 +1,7 @@
 from .. import models
 
 def getAuthority(operation, target, identity, target_id, identity_id):
+  return True
   if target == 'Campus':
     if operation == 'add':
       return False

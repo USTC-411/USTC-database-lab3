@@ -268,3 +268,134 @@ class Lesson_modify(forms.ModelForm):
       'test_type': forms.Select(choices=TEST_TYPE,attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson test_type",'autofocus': ''}),
       'lesson_status': forms.Select(choices=LESSON_STATUS,attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson status",'autofocus': ''}),
     }
+
+class ValidLesson(forms.ModelForm):
+  class Meta:
+    SPRING = 'spring'
+    AUTUMN = 'autumn'
+    SEMESTER = (
+      (SPRING, '春季学期'),
+      (AUTUMN, '秋季学期')
+    )
+  # Enum value of lesson's begin time
+    WEEK_TIME = (# 开课时间的枚举类定义，建议折叠
+      ('MONDAY1','Monday1'),
+      ('Monday2','Monday2'),
+      ('Monday3','Monday3'),
+      ('Monday4','Monday4'),
+      ('Monday5','Monday5'),
+      ('Monday6','Monday6'),
+      ('Monday7','Monday7'),
+      ('Monday8','Monday8'),
+      ('Monday9','Monday9'),
+      ('Tuesday1','Tuesday1'),
+      ('Tuesday2','Tuesday2'),
+      ('Tuesday3','Tuesday3'),
+      ('Tuesday4','Tuesday4'),
+      ('Tuesday5','Tuesday5'),
+      ('Tuesday6','Tuesday6'),
+      ('Tuesday7','Tuesday7'),
+      ('Tuesday8','Tuesday8'),
+      ('Tuesday9','Tuesday9'),
+      ('Wednesday1','Wednesday1'),
+      ('Wednesday2','Wednesday2'),
+      ('Wednesday3','Wednesday3'),
+      ('Wednesday4','Wednesday4'),
+      ('Wednesday5','Wednesday5'),
+      ('Wednesday6','Wednesday6'),
+      ('Wednesday7','Wednesday7'),
+      ('Wednesday8','Wednesday8'),
+      ('Wednesday9','Wednesday9'),
+      ('Thursday1','Thursday1'),
+      ('Thursday2','Thursday2'),
+      ('Thursday3' ,'Thursday3'),
+      ('Thursday4','Thursday4'),
+      ('Thursday5','Thursday5'),
+      ('Thursday6','Thursday6'),
+      ('Thursday7','Thursday7'),
+      ('Thursday8','Thursday8'),
+      ('Thursday9' ,'Thursday9'),
+      ('Friday1','Friday1'),
+      ('Friday2','Friday2'),
+      ('Friday3','Friday3'),
+      ('Friday4','Friday4'),
+      ('Friday5','Friday5'),
+      ('Friday6','Friday6'),
+      ('Friday7','Friday7'),
+      ('Friday8','Friday8'),
+      ('Friday9','Friday9')
+    )
+    model = models.ValidLesson
+    fields = ('lesson','teacher','begin_date','begin_semester','begin_time')
+    widgets = {
+      'lesson': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson id",'autofocus': ''}),
+      'teacher': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'placeholder': "teacher",'autofocus': ''}),
+      'begin_date': forms.DateInput(attrs={'class': 'form-control col-sm-10', 'placeholder': "begin_date",'autofocus': ''}),
+      'begin_semester': forms.Select(choices=SEMESTER,attrs={'class': 'form-control col-sm-10', 'placeholder': "begin_semester",'autofocus': ''}),
+      'begin_time': forms.Select(choices=WEEK_TIME,attrs={'class': 'form-control col-sm-10', 'placeholder': "begin_time",'autofocus': ''}),
+    }
+
+class ValidLesson_modify(forms.ModelForm):
+  class Meta:
+    SPRING = 'spring'
+    AUTUMN = 'autumn'
+    SEMESTER = (
+      (SPRING, '春季学期'),
+      (AUTUMN, '秋季学期')
+    )
+  # Enum value of lesson's begin time
+    WEEK_TIME = (# 开课时间的枚举类定义，建议折叠
+      ('MONDAY1','Monday1'),
+      ('Monday2','Monday2'),
+      ('Monday3','Monday3'),
+      ('Monday4','Monday4'),
+      ('Monday5','Monday5'),
+      ('Monday6','Monday6'),
+      ('Monday7','Monday7'),
+      ('Monday8','Monday8'),
+      ('Monday9','Monday9'),
+      ('Tuesday1','Tuesday1'),
+      ('Tuesday2','Tuesday2'),
+      ('Tuesday3','Tuesday3'),
+      ('Tuesday4','Tuesday4'),
+      ('Tuesday5','Tuesday5'),
+      ('Tuesday6','Tuesday6'),
+      ('Tuesday7','Tuesday7'),
+      ('Tuesday8','Tuesday8'),
+      ('Tuesday9','Tuesday9'),
+      ('Wednesday1','Wednesday1'),
+      ('Wednesday2','Wednesday2'),
+      ('Wednesday3','Wednesday3'),
+      ('Wednesday4','Wednesday4'),
+      ('Wednesday5','Wednesday5'),
+      ('Wednesday6','Wednesday6'),
+      ('Wednesday7','Wednesday7'),
+      ('Wednesday8','Wednesday8'),
+      ('Wednesday9','Wednesday9'),
+      ('Thursday1','Thursday1'),
+      ('Thursday2','Thursday2'),
+      ('Thursday3' ,'Thursday3'),
+      ('Thursday4','Thursday4'),
+      ('Thursday5','Thursday5'),
+      ('Thursday6','Thursday6'),
+      ('Thursday7','Thursday7'),
+      ('Thursday8','Thursday8'),
+      ('Thursday9' ,'Thursday9'),
+      ('Friday1','Friday1'),
+      ('Friday2','Friday2'),
+      ('Friday3','Friday3'),
+      ('Friday4','Friday4'),
+      ('Friday5','Friday5'),
+      ('Friday6','Friday6'),
+      ('Friday7','Friday7'),
+      ('Friday8','Friday8'),
+      ('Friday9','Friday9')
+    )
+    model = models.ValidLesson
+    fields = ('teacher','begin_date','begin_semester','begin_time')
+    widgets = {
+      'teacher': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'placeholder': "teacher",'autofocus': ''}),
+      'begin_date': forms.DateInput(attrs={'class': 'form-control col-sm-10', 'placeholder': "begin_date",'autofocus': ''}),
+      'begin_semester': forms.Select(choices=SEMESTER,attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson id",'autofocus': ''}),
+      'begin_time': forms.Select(choices=WEEK_TIME,attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson id",'autofocus': ''}),
+    }

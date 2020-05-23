@@ -66,9 +66,8 @@ def add(request):
             authority = getAuthority('add', 'Class', 'Teacher', class_id, user_id)
             if authority:
                 class_major_in = models.Major.objects.get(name = class_major)
-                print(class_major_in.id)
-                new_class = models.myClass(class_id, class_name, set_up_date,head_teacher,grade,major=class_major_in)
-                print(new_class.id,new_class.name,new_class.major)
+                class_teacher_in = models.Teacher.objects.get(name = head_teacher)
+                new_class = models.myClass(class_id, class_name, set_up_date,head_teacher=class_teacher_in,grade=grade,major=class_major_in)
                 new_class.save()
             else:
                 message = 'Do not have the right of this operation'

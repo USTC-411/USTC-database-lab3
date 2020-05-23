@@ -366,3 +366,21 @@ class Student_modify(forms.ModelForm):
       'password': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
       'myClass': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
     }
+
+class LessonSelect(forms.ModelForm): 
+  class Meta:
+    model = models.LessonSelect
+    fields = ('valid_lesson', 'student', 'score' )
+    widgets = {
+      'valid_lesson': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'placeholder': "Campus id",'autofocus': ''}),
+      'student': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'placeholder': "Campus name",'autofocus': ''}),
+      'score': forms.IntegerField(attrs={'class': 'form-control col-sm-10', 'placeholder': "Campus address",'autofocus': ''})
+    }
+
+class LessonSelect_modify(forms.ModelForm):
+  class Meta:
+    model = models.LessonSelect
+    fields = ('name', 'address', )
+    widgets = {
+      'score': forms.IntegerField(attrs={'class': 'form-control col-sm-10', 'placeholder': "Campus address",'autofocus': ''}),    
+    }

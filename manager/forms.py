@@ -365,6 +365,8 @@ class Student_modify(forms.ModelForm):
       'email': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
       'password': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
       'myClass': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+    }
+
 class ValidLesson(forms.ModelForm):
   class Meta:
     SPRING = 'spring'

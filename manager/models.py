@@ -71,10 +71,15 @@ class Teacher(Person): # 老师模型的定义，继承Person类
     (ASSOCIATE_PROFESSOR, '副教授')
   )
   # Fields for model
+  ISADMIN_TYPE = (
+    ('1','1'),
+    ('0','0')
+  )
   teacher_id = models.CharField(max_length=30, unique=True)
   password = models.CharField(max_length=256, default="123456")
   major = models.ForeignKey('Major', on_delete=models.CASCADE, related_name='Teacher') # 有一个外键，默认指向专业的主键，也就是id
   title = models.CharField(max_length=30, choices=TITLE_TYPE)
+  isadmin = models.CharField(max_length=2,choices=ISADMIN_TYPE,default='0')
   def __str__(self):
     return self.name
 

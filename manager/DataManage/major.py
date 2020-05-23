@@ -53,7 +53,7 @@ def add(request):
             major_id = add_form.cleaned_data.get('id')
             major_name = add_form.cleaned_data.get('name')
             major_address = add_form.cleaned_data.get('address')
-            major_principal = add_form.cleaned_data.get('address')
+            major_principal = add_form.cleaned_data.get('principal')
             major_campus = add_form.cleaned_data.get('campus')
             print(major_campus)
             try: # 如果用户是老师

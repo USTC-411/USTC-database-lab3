@@ -73,7 +73,7 @@
         {% endfor %}
       </tbody>
     </table>
-    
+
     <form class="add-form bg-light" id="add-form" action="/ManageClass/add/" method="POST">
       {% csrf_token %}
       <div class="form-group row m-4">
@@ -123,6 +123,10 @@
         <div class="form-group row m-4">
           <label for="colFormLabelLg" class="col-sm-2 col-form-label">Grade</label>
           {{ class_form.grade }}
+        </div>
+        <div class="form-group row m-4">
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label">Major</label>
+          {{ class_form.major }}
         </div>
         <div class="btn-group m-6 form-button" role="group" aria-label="Basic example">
           <button type="submit" class="btn btn-primary">Modify</button>

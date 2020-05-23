@@ -90,23 +90,15 @@ def delete(request):
     to_be_deleted = models.ValidLesson.objects.get(lesson=to_be_deleted_id)
     user_id = request.session['user_id']
     message = ""
-    try: # 如果用户是teacher
-        request.session.get('user_type', 'Teacher')
-        authority = False
+    try: # 如果用户是student
+        request.session.get('user_type', 'Student')
+        authority = True
         if authority:
             models.LessonSelect.objects.get(valid_lesson=to_be_deleted_id, student=user_id).delete()
         else:
             message = 'Do not have the right of this operation'
     except:
-        try: # 如果用户是student
-            request.session.get('user_type', 'Student')
-            authority = True
-            if authority:
-                models.LessonSelect.objects.get(valid_lesson=to_be_deleted_id, student=user_id).delete()
-            else:
-                message = 'Do not have the right of this operation'
-        except:
-            message = 'Please login'
+        message = 'Please login'
     # 渲染动态页面
     show_result = []
     validlesson_set = models.ValidLesson.objects.all()

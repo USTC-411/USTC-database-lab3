@@ -213,7 +213,7 @@ class ValidLesson(models.Model): # 有效课程的模型定义，有效课程指
     on_delete=models.CASCADE,
     related_name="valid_status",
     null=True,
-    blank=True
+    blank=True,
   )
   teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE, related_name='ValidLesson') # 有一个外键，指向开课的老师
   begin_date = models.DateField()
@@ -223,8 +223,8 @@ class ValidLesson(models.Model): # 有效课程的模型定义，有效课程指
   students = models.ManyToManyField(Student, related_name='students', through='LessonSelect') 
 
 class LessonSelect(models.Model):
-  # 这是选课表，是学生和有效课程的多对多关系中的中间表，某些参数通过关系来访问
+
   valid_lesson = models.ForeignKey(ValidLesson, on_delete=models.CASCADE, related_name="BeSelected")
   student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="SelectLesson")
-  score = models.IntegerField(validators=[MaxValueValidator(100), MinValueValidator(0)], null=True, blank=True)
+  score = models.IntegerField(validators=[MaxValueValidator(100), MinValueValidator(0)], blank=True)
 

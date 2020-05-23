@@ -17,10 +17,10 @@ def lesson_select(request):
     lesson_select_table = models.LessonSelect.objects.filter(student=user_id)
     for i in lesson_select_table:
         if i.score == None:
-            valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.id)
+            valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.lesson)
             show_result.append([0, valid_lesson.lesson.id, valid_lesson.begin_date, valid_lesson.begin_semester, 'NULL', 0])
         else:
-            valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.id)
+            valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.lesson)
             show_result.append([0, valid_lesson.lesson.id, valid_lesson.begin_date, valid_lesson.begin_semester, i.score, 0])
     lesson_select_form = forms.LessonSelect()
     lesson_select_modify_form = forms.LessonSelect_modify()
@@ -66,10 +66,10 @@ def add(request):
     lesson_select_table = models.LessonSelect.objects.filter(student=user_id)
     for i in lesson_select_table:
         if i.score == None:
-            valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.id)
+            valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.lesson)
             show_result.append([0, valid_lesson.lesson.id, valid_lesson.begin_date, valid_lesson.begin_semester, 'NULL', 0])
         else:
-            valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.id)
+            valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.lesson)
             show_result.append([0, valid_lesson.lesson.id, valid_lesson.begin_date, valid_lesson.begin_semester, i.score, 0])
     lesson_select_form = forms.LessonSelect()
     lesson_select_modify_form = forms.LessonSelect_modify()
@@ -94,7 +94,7 @@ def delete(request):
         request.session.get('user_type', 'Student')
         authority = True
         if authority:
-            models.LessonSelect.objects.get(valid_lesson=to_be_deleted_id, student=user_id).delete()
+            models.LessonSelect.objects.get(valid_lesson=to_be_deleted, student=user_id).delete()
         else:
             message = 'Do not have the right of this operation'
     except:
@@ -106,10 +106,10 @@ def delete(request):
     lesson_select_table = models.LessonSelect.objects.filter(student=user_id)
     for i in lesson_select_table:
         if i.score == None:
-            valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.id)
+            valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.lesson)
             show_result.append([0, valid_lesson.lesson.id, valid_lesson.begin_date, valid_lesson.begin_semester, 'NULL', 0])
         else:
-            valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.id)
+            valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.lesson)
             show_result.append([0, valid_lesson.lesson.id, valid_lesson.begin_date, valid_lesson.begin_semester, i.score, 0])
     lesson_select_form = forms.LessonSelect()
     lesson_select_modify_form = forms.LessonSelect_modify()
@@ -135,10 +135,10 @@ def query(request):
         lesson_select_table = models.LessonSelect.objects.filter(student=user_id)
         for i in lesson_select_table:
             if i.score == None:
-                valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.id)
+                valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.lesson)
                 show_result.append([0, valid_lesson.lesson.id, valid_lesson.begin_date, valid_lesson.begin_semester, 'NULL', 0])
             else:
-                valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.id)
+                valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.lesson)
                 show_result.append([0, valid_lesson.lesson.id, valid_lesson.begin_date, valid_lesson.begin_semester, i.score, 0])
         try: # 如果用户是student
             request.session.get('user_type', 'Student')
@@ -187,7 +187,8 @@ def modify(request):
             request.session.get('user_type', 'Student')
             authority = True
             if authority:
-                to_be_modified = models.LessonSelect.objects.get(valid_lesson=tag, student=user_id)
+                valid_lesson = models.ValidLesson.objects.get(lesson = tag)
+                to_be_modified = models.LessonSelect.objects.get(valid_lesson=valid_lesson, student=user_id)
                 to_be_modified.score = validlesson_score
                 to_be_modified.save()
             else:
@@ -204,10 +205,10 @@ def modify(request):
     lesson_select_table = models.LessonSelect.objects.filter(student=user_id)
     for i in lesson_select_table:
         if i.score == None:
-            valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.id)
+            valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.lesson)
             show_result.append([0, valid_lesson.lesson.id, valid_lesson.begin_date, valid_lesson.begin_semester, 'NULL', 0])
         else:
-            valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.id)
+            valid_lesson = models.ValidLesson.objects.get(lesson=i.valid_lesson.lesson)
             show_result.append([0, valid_lesson.lesson.id, valid_lesson.begin_date, valid_lesson.begin_semester, i.score, 0])
     lesson_select_form = forms.LessonSelect()
     lesson_select_modify_form = forms.LessonSelect_modify()

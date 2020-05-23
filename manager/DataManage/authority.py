@@ -12,6 +12,7 @@ def getAuthority(operation, target, identity, target_id, identity_id):
       return False
 
   elif target == 'Major':
+    return True
     if operation == 'add':
       return False
     elif operation == 'delete':
@@ -22,14 +23,15 @@ def getAuthority(operation, target, identity, target_id, identity_id):
       return False
 
   elif target == 'Class':
-    if operation == 'add':
+    '''if operation == 'add':
       return False
     elif operation == 'delete':
       return False
     elif operation == 'query':
       return True
     elif operation == 'modify':
-      return False
+      return False'''
+    return True
 
   elif target == 'Teacher':
     return True

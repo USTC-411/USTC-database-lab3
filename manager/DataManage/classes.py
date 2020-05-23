@@ -29,7 +29,7 @@ def classes(request):
                     show_result.append(result)
         except:
             message = 'Please login'
-            message = request.session['user_type']
+            #message = request.session['user_type']
     
     class_form = forms.myClass()
     class_modify_form = forms.myClass_modify()
@@ -49,6 +49,8 @@ def add(request):
     message = ''
     if request.method == 'POST':
         add_form = forms.myClass(request.POST)
+        #print(add_form.cleaned_data.get('id'))
+        print(add_form.errors)
         user_id = request.session['user_id']
         # 权限控制——这一部分用于判断账号类型，因为campus只有管理员能操作，所以以下直接不允许相关操作
         if add_form.is_valid():
@@ -57,17 +59,20 @@ def add(request):
             set_up_date = add_form.cleaned_data.get('date')
             head_teacher = add_form.cleaned_data.get('head_teacher')
             grade = add_form.cleaned_data.get('grade')
-            major = add_form.cleaned_data.get('major')
-            
-            try: # 如果用户是老师
-                request.session.get('user_type', 'Teacher')
-                authority = getAuthority('add', 'Class', 'Teacher', campus_id, user_id)
-                if authority:
-                    new_campus = models.myClass(class_id, class_name, set_up_date,head_teacher,grade,major)
-                    new_campus.save()
-                else:
-                    message = 'Do not have the right of this operation'
-            except:
+            class_major = add_form.cleaned_data.get('major')
+            print(class_major)
+            #try: # 如果用户是老师
+            request.session.get('user_type', 'Teacher')
+            authority = getAuthority('add', 'Class', 'Teacher', class_id, user_id)
+            if authority:
+                class_major_in = models.Major.objects.get(name = class_major)
+                print(class_major_in.id)
+                new_class = models.myClass(class_id, class_name, set_up_date,head_teacher,grade,major=class_major_in)
+                print(new_class.id,new_class.name,new_class.major)
+                new_class.save()
+            else:
+                message = 'Do not have the right of this operation'
+            '''except:
                 try: # 如果用户是学生
                     request.session.get('user_type', 'Student')
                     authority = getAuthority('add', 'Class', 'Student', campus_id, user_id)
@@ -77,7 +82,7 @@ def add(request):
                     else:
                         message = 'Do not have the right of this operation'
                 except:
-                    message = 'Please login'
+                    message = 'Please login' '''
         else:
             message = "Please check what you've entered"
     # 渲染动态页面

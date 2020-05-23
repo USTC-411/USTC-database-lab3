@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>学生信息显示</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入bootstrap -->
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'manager/css/campus.css' %}">
+    <script type="text/javascript" src="{% static 'manager/js/campus.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+  </head>
+  <body>
+    {% if message %}
+      <div class="alert alert-warning">{{ message }}</div>
+    {% endif %}
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+      <a class="navbar-brand nav-title">Student Management</a>
+      <form class="form-inline search-form query-form" action="/ManageStudent/query/" method="GET">
+        <div class="col-md-3 search-filter">
+          <select class="custom-select" required name="option">
+            <option selected disabled value="">Choose filter</option>
+            <option>id</option>
+            <option>id_type</option>
+            <option>name</option>
+            <option>sex</option>
+            <option>birthday</option>
+            <option>nationality</option>
+            <option>family_address</option>
+            <option>family_postcode</option>
+            <option>family_telephone</option>
+            <option>entry_date</option>
+            <option>student_id</option>
+            <option>email</option>
+            <option>myClass</option>
+          </select>
+        </div>
+        <input class="form-control mr-sm-1" type="search" placeholder="type in constrains" aria-label="Search" name="query_val">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Query</button>
+      </form>
+      <button class="btn btn-success" type="submit" onclick="Popup()">Add</button>
+    </nav>
+
+    <table class="table table-secondary">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">id_type</th>
+          <th scope="col">name</th>
+          <th scope="col">sex</th>
+          <th scope="col">birthday</th>
+          <th scope="col">nationality</th>
+          <th scope="col">family_address</th>
+          <th scope="col">family_postcode</th>
+          <th scope="col">family_telephone</th>
+          <th scope="col">entry_date</th>
+          <th scope="col">email</th>
+          <th scope="col">student_id</th>
+          <th scope="col">myClass</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in student_set %}
+        <tr>
+          <td>{{ student.id }}</td>
+          <td>{{ student.id_type }}</td>
+          <td>{{ student.name }}</td>
+          <td>{{ student.sex }}</td>
+          <td>{{ student.birthday }}</td>
+          <td>{{ student.nationality }}</td>
+          <td>{{ student.family_address }}</td>
+          <td>{{ student.family_postcode }}</td>
+          <td>{{ student.family_telephone }}</td>
+          <td>{{ student.entry_date }}</td>
+          <td>{{ student.email }}</td>
+          <td>{{ student.student_id }}</td>
+          <td>{{ student.myClass.id }}</td>
+          <td>
+            <a class="btn btn-danger" role="button" href="/ManageStudent/delete/?id={{student.id}}">
+              Delete
+            </a>
+          </td>
+          <td>
+            <a class="btn btn-warning" role="button" href="/ManageStudent/?modify_tag={{student.id}}">
+              Modify
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <form class="add-form bg-light" id="add-form" action="/ManageStudent/add/" method="POST">
+      {% csrf_token %}
+      <div class="form-group row m-4">
+        <label for="colFormLabelSm" class="col-sm-2 col-form-label">id</label>
+        {{ student_form.id }}
+      </div>
+      <div class="form-group row m-4">
+        <label for="colFormLabel" class="col-sm-2 col-form-label">id_type</label>
+        {{ student_form.id_type }}
+      </div>
+      <div class="form-group row m-4">
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">name</label>
+        {{ student_form.name }}
+      </div>
+      <div class="form-group row m-4">
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">sex</label>
+        {{ student_form.sex }}
+      </div>
+      <div class="form-group row m-4">
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">birthday</label>
+        {{ student_form.birthday }}
+      </div>
+      <div class="form-group row m-4">
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">nationality</label>
+        {{ student_form.nationality }}
+      </div>
+      <div class="form-group row m-4">
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">family_address</label>
+        {{ student_form.family_address }}
+      </div>
+      <div class="form-group row m-4">
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">family_postcode</label>
+        {{ student_form.family_postcode }}
+      </div>
+      <div class="form-group row m-4">
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">family_telephone</label>
+        {{ student_form.family_telephone }}
+      </div>
+      <div class="form-group row m-4">
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">entry_date</label>
+        {{ student_form.entry_date }}
+      </div>
+      <div class="form-group row m-4">
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">email</label>
+        {{ student_form.email }}
+      </div>
+      <div class="form-group row m-4">
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">student_id</label>
+        {{ student_form.student_id }}
+      </div>
+      <div class="form-group row m-4">
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">password</label>
+        {{ student_form.password }}
+      </div>
+      <div class="form-group row m-4">
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">myClass</label>
+        {{ student_form.myClass }}
+      </div>
+      <div class="btn-group m-6 form-button" role="group" aria-label="Basic example">
+        <button type="submit" class="btn btn-primary">Add</button>
+        <button class="btn btn-danger" id="add-close-btn" onclick="CloseForm()">Close</button>
+      </div>
+    </form>
+    {% if modify_tag != -1 %}
+      <form class="modify-form bg-light" id="modify-form" action="/ManageStudent/modify/?tag={{modify_tag}}" method="POST">
+        {% csrf_token %}
+        <div class="form-group row m-4">
+          <label for="colFormLabel" class="col-sm-2 col-form-label">id_type</label>
+          {{ student_modify_form.id_type }}
+        </div>
+        <div class="form-group row m-4">
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label">name</label>
+          {{ student_modify_form.name }}
+        </div>
+        <div class="form-group row m-4">
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label">sex</label>
+          {{ student_modify_form.sex }}
+        </div>
+        <div class="form-group row m-4">
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label">birthday</label>
+          {{ student_modify_form.birthday }}
+        </div>
+        <div class="form-group row m-4">
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label">nationality</label>
+          {{ student_modify_form.nationality }}
+        </div>
+        <div class="form-group row m-4">
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label">family_address</label>
+          {{ student_modify_form.family_address }}
+        </div>
+        <div class="form-group row m-4">
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label">family_postcode</label>
+          {{ student_modify_form.family_postcode }}
+        </div>
+        <div class="form-group row m-4">
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label">family_telephone</label>
+          {{ student_modify_form.family_telephone }}
+        </div>
+        <div class="form-group row m-4">
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label">entry_date</label>
+          {{ student_modify_form.entry_date }}
+        </div>
+        <div class="form-group row m-4">
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label">email</label>
+          {{ student_modify_form.email }}
+        </div>
+        <div class="form-group row m-4">
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label">password</label>
+          {{ student_modify_form.password }}
+        </div>
+        <div class="form-group row m-4">
+          <label for="colFormLabelLg" class="col-sm-2 col-form-label">myClass</label>
+          {{ student_modify_form.myClass }}
+        </div>
+        <div class="btn-group m-6 form-button" role="group" aria-label="Basic example">
+          <button type="submit" class="btn btn-primary">Modify</button>
+          <button class="btn btn-danger" onclick="CloseModification()">Close</button>
+        </div>
+      </form>
+    {% endif %}
+  </body>
+</html>

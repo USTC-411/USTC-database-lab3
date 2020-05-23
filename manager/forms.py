@@ -269,3 +269,100 @@ class Lesson_modify(forms.ModelForm):
       'test_type': forms.Select(choices=TEST_TYPE,attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson test_type",'autofocus': ''}),
       'lesson_status': forms.Select(choices=LESSON_STATUS,attrs={'class': 'form-control col-sm-10', 'placeholder': "Lesson status",'autofocus': ''}),
     }
+
+class Student(forms.ModelForm):
+  class Meta:
+    model = models.Student
+    # Enum value for id_type
+    IDCARD = 'IDCard'
+    PASSPORT = 'Passport'
+    ID_TYPE = (
+      (IDCARD, '身份证'),
+      (PASSPORT, '护照'),
+    )
+    # Enum value for sex
+    MALE = 'male'
+    FEMALE = 'female'
+    SEX_TYPE = (
+      (MALE, '男'),
+      (FEMALE, '女')
+    )
+    fields = (
+      'id',
+      'id_type',
+      'name',
+      'sex',
+      'birthday',
+      'nationality',
+      'family_address',
+      'family_postcode',
+      'family_telephone',
+      'entry_date',
+      'email',
+      'student_id',
+      'password',
+      'myClass',
+    )
+    widgets = {
+      'id': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'id_type': forms.Select(choices=ID_TYPE, attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'name': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'sex': forms.Select(choices=SEX_TYPE, attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'birthday': forms.DateInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'nationality': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'family_address': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'family_postcode': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'family_telephone': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'entry_date': forms.DateInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'email': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'student_id': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'password': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'myClass': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+    }
+
+class Student_modify(forms.ModelForm):
+  
+  class Meta:
+    model = models.Student
+    # Enum value for id_type
+    IDCARD = 'IDCard'
+    PASSPORT = 'Passport'
+    ID_TYPE = (
+      (IDCARD, '身份证'),
+      (PASSPORT, '护照'),
+    )
+    # Enum value for sex
+    MALE = 'male'
+    FEMALE = 'female'
+    SEX_TYPE = (
+      (MALE, '男'),
+      (FEMALE, '女')
+    )
+    fields = (
+      'id_type',
+      'name',
+      'sex',
+      'birthday',
+      'nationality',
+      'family_address',
+      'family_postcode',
+      'family_telephone',
+      'entry_date',
+      'email',
+      'password',
+      'myClass',
+    )
+    widgets = {
+      'id_type': forms.Select(choices=ID_TYPE, attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'name': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'sex': forms.Select(choices=SEX_TYPE, attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'birthday': forms.DateInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'nationality': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'family_address': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'family_postcode': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'family_telephone': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'entry_date': forms.DateInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'email': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'password': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+      'myClass': forms.TextInput(attrs={'class': 'form-control col-sm-10', 'autofocus': ''}),
+    }

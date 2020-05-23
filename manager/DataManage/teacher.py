@@ -223,10 +223,32 @@ def query(request):
             request.session.get('user_type', 'Teacher')
             if option == 'id': # 搜索所有结果，其中会有非法结果
                 query_result = models.Teacher.objects.filter(id=query_val)
+            elif option == 'id_type':
+                query_result = models.Teacher.objects.filter(id_type=query_val)
             elif option == 'name':
                 query_result = models.Teacher.objects.filter(name=query_val)
-            elif option == 'address':
-                query_result = models.Teacher.objects.filter(address=query_val)
+            elif option == 'sex':
+                query_result = models.Teacher.objects.filter(sex=query_val)
+            elif option == 'birthday':
+                query_result = models.Teacher.objects.filter(birthday=query_val)
+            elif option == 'nationality':
+                query_result = models.Teacher.objects.filter(nationality=query_val)
+            elif option == 'family_address':
+                query_result = models.Teacher.objects.filter(family_address=query_val)
+            elif option == 'family_postcode':
+                query_result = models.Teacher.objects.filter(family_postcode=query_val)
+            elif option == 'family_telephone':
+                query_result = models.Teacher.objects.filter(family_telephone=query_val)
+            elif option == 'entry_date':
+                query_result = models.Teacher.objects.filter(entry_date=query_val)
+            elif option == 'email':
+                query_result = models.Teacher.objects.filter(email=query_val)
+            elif option == 'teacher_id':
+                query_result = models.Teacher.objects.filter(teacher_id=query_val)
+            elif option == 'major':
+                query_result = models.Teacher.objects.filter(major=query_val)
+            elif option == 'title':
+                query_result = models.Teacher.objects.filter(title=query_val)
             for result in query_result: # 剔除所有结果中的非法结果
                 authority = getAuthority('query', 'Teacher', 'Teacher', result.id, user_id) # 检查用户对该元素的query权限
                 if authority:

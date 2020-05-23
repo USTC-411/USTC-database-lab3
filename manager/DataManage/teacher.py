@@ -88,6 +88,7 @@ def add(request):
                         password = teacher_password,
                         major = major,
                         title = teacher_title,
+                        isadmin = 0,
                     )
                 else:
                     message = 'Do not have the right of this operation'
